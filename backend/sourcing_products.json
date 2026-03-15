@@ -1,0 +1,1241 @@
+[
+  {
+    "name": "Yellow Ombré Tissue Anarkali",
+    "tagline": "A front-slit sunset glow.",
+    "category": "Anarkalis",
+    "price": "18850",
+    "cost_price": "9200",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://taruni.in/cdn/shop/files/Yellow_Ombre_Tissue_Anarkali.jpg"
+    ],
+    "description": "A striking yellow ombré tissue front-slit anarkali, perfect for high-end festive celebrations and weddings.",
+    "tags": [
+      "wedding",
+      "trending 2026",
+      "tissue fabric"
+    ],
+    "gender": "women",
+    "stock": 12,
+    "status": "published"
+  },
+  {
+    "name": "Red Cotton Linen Block Print Set",
+    "tagline": "Timeless Jaipur artistry.",
+    "category": "Kurta Sets",
+    "price": "4999",
+    "cost_price": "2100",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.fabindia.com/ccstore/v1/images/?source=/file/v7489234857/Red_Block_Print.jpg"
+    ],
+    "description": "Handcrafted red cotton linen set featuring traditional Bagru block prints and a matching tailored pant.",
+    "tags": [
+      "daily wear",
+      "handblock",
+      "natural fabric"
+    ],
+    "gender": "women",
+    "stock": 45,
+    "status": "published"
+  },
+  {
+    "name": "Light Pink Corset Lehenga",
+    "tagline": "Modern structure, royal flair.",
+    "category": "Lehengas",
+    "price": "38500",
+    "cost_price": "18000",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://taruni.in/cdn/shop/files/Pink_Corset_Lehenga.jpg"
+    ],
+    "description": "Contemporary corset-style blouse with boning detail paired with a voluminous light pink georgette lehenga.",
+    "tags": [
+      "reception",
+      "designer",
+      "2026 trend"
+    ],
+    "gender": "women",
+    "stock": 5,
+    "status": "published"
+  },
+  {
+    "name": "Purple Cotton Chikankari Kurta",
+    "tagline": "The Lucknowi legend.",
+    "category": "Kurtas",
+    "price": "3899",
+    "cost_price": "1450",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.fabindia.com/ccstore/v1/images/?source=/file/v82739/Purple_Chikankari.jpg"
+    ],
+    "description": "Deep purple cotton kurta featuring intricate hand-embroidered white chikankari motifs.",
+    "tags": [
+      "heritage",
+      "summer",
+      "chikankari"
+    ],
+    "gender": "women",
+    "stock": 30,
+    "status": "published"
+  },
+  {
+    "name": "Navy Organza Sequins Sharara",
+    "tagline": "Dance in the starlight.",
+    "category": "Sharara Sets",
+    "price": "22500",
+    "cost_price": "11000",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/surbhi-shah-navy-sharara.jpg"
+    ],
+    "description": "Designer Surbhi Shah navy blue organza set with all-over silver sequin work and a sheer dupatta.",
+    "tags": [
+      "party wear",
+      "designer",
+      "cocktail"
+    ],
+    "gender": "women",
+    "stock": 7,
+    "status": "published"
+  },
+  {
+    "name": "Beige Tissue Palazzo Set",
+    "tagline": "Subtle metallic elegance.",
+    "category": "Kurta Sets",
+    "price": "12990",
+    "cost_price": "5500",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://taruni.in/cdn/shop/files/Beige_Tissue_Palazzo.jpg"
+    ],
+    "description": "Beige tissue straight cut kurti paired with wide-leg palazzo pants and a metallic finish.",
+    "tags": [
+      "office ethnic",
+      "minimalist",
+      "tissue"
+    ],
+    "gender": "women",
+    "stock": 18,
+    "status": "published"
+  },
+  {
+    "name": "Mustard Tissue Zardozi Suit",
+    "tagline": "Gilded in tradition.",
+    "category": "Suit Sets",
+    "price": "11998",
+    "cost_price": "4800",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/mustard_tissue_suit.jpg"
+    ],
+    "description": "Mustard tissue embroidered suit set with sequins and heavy zardozi neck detail.",
+    "tags": [
+      "festive",
+      "haldi",
+      "premium"
+    ],
+    "gender": "women",
+    "stock": 22,
+    "status": "published"
+  },
+  {
+    "name": "Emerald Green Choga Set",
+    "tagline": "A royal Mysha classic.",
+    "category": "Salwar Kameez",
+    "price": "17850",
+    "cost_price": "7900",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://sheetalbatra.com/cdn/shop/files/Emerald_Green_Choga.jpg"
+    ],
+    "description": "Luxury long emerald green choga with traditional salwar by Sheetal Batra.",
+    "tags": [
+      "luxury",
+      "reception",
+      "deep tones"
+    ],
+    "gender": "women",
+    "stock": 4,
+    "status": "published"
+  },
+  {
+    "name": "Fuchsia Brocade Mirror Suit",
+    "tagline": "Reflecting bold beauty.",
+    "category": "Suit Sets",
+    "price": "12998",
+    "cost_price": "5400",
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/fuchsia_brocade.jpg"
+    ],
+    "description": "Fuchsia brocade ethnic motifs suit set featuring authentic mirror work and zari borders.",
+    "tags": [
+      "wedding guest",
+      "brocade",
+      "vibrant"
+    ],
+    "gender": "women",
+    "stock": 15,
+    "status": "published"
+  },
+  {
+    "name": "Sage Green Ajrakh Midi",
+    "tagline": "Sustainable fusion soul.",
+    "category": "Dresses",
+    "price": "3899",
+    "cost_price": "1400",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.fabindia.com/ccstore/v1/images/?source=/file/v9283/Sage_Ajrakh.jpg"
+    ],
+    "description": "Hand-block printed Ajrakh midi dress with tiered silhouette and eco-friendly dyes.",
+    "tags": [
+      "sustainable",
+      "indo-western",
+      "casual"
+    ],
+    "gender": "women",
+    "stock": 35,
+    "status": "published"
+  },
+  {
+    "name": "Ivory Marodi Silk Kurta",
+    "tagline": "The minimalist's choice.",
+    "category": "Kurta Sets",
+    "price": "16500",
+    "cost_price": "7100",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/yuvrani-jaipur-ivory-silk.jpg"
+    ],
+    "description": "Ivory silk Marodi hand-embroidered kurta set, a bestseller for sophisticated evening looks.",
+    "tags": [
+      "bestseller",
+      "minimalist",
+      "luxury"
+    ],
+    "gender": "women",
+    "stock": 8,
+    "status": "published"
+  },
+  {
+    "name": "Blue Brocade Co-Ord Set",
+    "tagline": "The modern power suit.",
+    "category": "Co-ords",
+    "price": "12998",
+    "cost_price": "5100",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/blue_brocade_coord.jpg"
+    ],
+    "description": "Royal blue brocade embellished co-ord set with sequin highlights and structured pants.",
+    "tags": [
+      "modern ethnic",
+      "cocktail",
+      "trendy"
+    ],
+    "gender": "women",
+    "stock": 10,
+    "status": "published"
+  },
+  {
+    "name": "Rani Hotpink Kalidaar",
+    "tagline": "A splash of pink energy.",
+    "category": "Kurta Sets",
+    "price": "14400",
+    "cost_price": "6200",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://sheetalbatra.com/cdn/shop/files/Rani_Hotpink_Choga.jpg"
+    ],
+    "description": "Short kalidaar choga in rani hot pink with traditional salwar, perfect for Mehendi ceremonies.",
+    "tags": [
+      "mehendi",
+      "vibrant",
+      "designer"
+    ],
+    "gender": "women",
+    "stock": 6,
+    "status": "published"
+  },
+  {
+    "name": "Off White Georgette Gown",
+    "tagline": "Pearl and bead fantasy.",
+    "category": "Gowns",
+    "price": "14998",
+    "cost_price": "6100",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/off_white_gown.jpg"
+    ],
+    "description": "Floor-length georgette woven gown with intricate beads and stone work on the bodice.",
+    "tags": [
+      "reception",
+      "gown",
+      "formal"
+    ],
+    "gender": "women",
+    "stock": 4,
+    "status": "published"
+  },
+  {
+    "name": "Mint Green Cotton Anarkali",
+    "tagline": "Fresh floral breeze.",
+    "category": "Anarkalis",
+    "price": "1900",
+    "cost_price": "850",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.wforwoman.com/media/catalog/product/mint_green_anarkali.jpg"
+    ],
+    "description": "Mint green floral printed pure cotton anarkali kurta, lightweight and ideal for daytime events.",
+    "tags": [
+      "affordable",
+      "summer",
+      "floral"
+    ],
+    "gender": "women",
+    "stock": 50,
+    "status": "published"
+  },
+  {
+    "name": "Black & Gold Fishtail Lehenga",
+    "tagline": "Sculpted for the stars.",
+    "category": "Lehengas",
+    "price": "32000",
+    "cost_price": "14500",
+    "sizes": [
+      "S",
+      "M"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/rashika-sharma-black-lehenga.jpg"
+    ],
+    "description": "Rashika Sharma black and gold modal fishtail lehenga set with a tailored contemporary silhouette.",
+    "tags": [
+      "luxury",
+      "evening party",
+      "fishcut"
+    ],
+    "gender": "women",
+    "stock": 3,
+    "status": "published"
+  },
+  {
+    "name": "Lavender Chinnon Suit",
+    "tagline": "Grace in every fold.",
+    "category": "Suit Sets",
+    "price": "5550",
+    "cost_price": "2400",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://taruni.in/cdn/shop/files/Lavender_Chinnon_Suit.jpg"
+    ],
+    "description": "Lavender Chinnon straight cut suit with delicate embroidery and matching dupatta.",
+    "tags": [
+      "pastels",
+      "festive",
+      "trending"
+    ],
+    "gender": "women",
+    "stock": 25,
+    "status": "published"
+  },
+  {
+    "name": "Rust Embroidered Kaftan",
+    "tagline": "Bohemian luxury.",
+    "category": "Kaftans",
+    "price": "12500",
+    "cost_price": "5200",
+    "sizes": [
+      "Free Size"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/surbhi-gupta-rust-kaftan.jpg"
+    ],
+    "description": "Surbhi Gupta rust-toned kaftan with detailed threadwork and metallic embroidery.",
+    "tags": [
+      "resort wear",
+      "designer",
+      "kaftan"
+    ],
+    "gender": "women",
+    "stock": 9,
+    "status": "published"
+  },
+  {
+    "name": "Teal Rayon Mirror Kurta",
+    "tagline": "Shimmer in every step.",
+    "category": "Kurtas",
+    "price": "1498",
+    "cost_price": "600",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/teal_mirror_kurta.jpg"
+    ],
+    "description": "Teal rayon floral print kurta with real mirror work highlights and ethnic motifs.",
+    "tags": [
+      "budget",
+      "daily ethnic",
+      "mirror work"
+    ],
+    "gender": "women",
+    "stock": 60,
+    "status": "published"
+  },
+  {
+    "name": "Purple Zari Silk Anarkali",
+    "tagline": "Royal heritage in silk.",
+    "category": "Anarkalis",
+    "price": "45000",
+    "cost_price": "21000",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/jayanti-reddy-purple-anarkali.jpg"
+    ],
+    "description": "Jayanti Reddy exclusive purple silk anarkali with heavy zari hand embroidery.",
+    "tags": [
+      "wedding",
+      "luxury",
+      "heritage"
+    ],
+    "gender": "women",
+    "stock": 2,
+    "status": "published"
+  },
+  {
+    "name": "Sky Blue Printed Cotton Set",
+    "tagline": "Cloud-like comfort.",
+    "category": "Kurta Sets",
+    "price": "4299",
+    "cost_price": "1800",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.wforwoman.com/media/catalog/product/sky_blue_cotton_set.jpg"
+    ],
+    "description": "Sky blue printed pure cotton anarkali kurta, pants, and matching dupatta set.",
+    "tags": [
+      "casual",
+      "day wear",
+      "cotton"
+    ],
+    "gender": "women",
+    "stock": 40,
+    "status": "published"
+  },
+  {
+    "name": "Onion Pink Tissue Sharara",
+    "tagline": "The soft glow of dawn.",
+    "category": "Sharara Sets",
+    "price": "10250",
+    "cost_price": "4500",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://taruni.in/cdn/shop/files/Onion_Pink_Sharara.jpg"
+    ],
+    "description": "Onion pink tissue sharara set with gold zari borders and light sequins.",
+    "tags": [
+      "haldi",
+      "sangeet",
+      "tissue"
+    ],
+    "gender": "women",
+    "stock": 14,
+    "status": "published"
+  },
+  {
+    "name": "Hot Pink Pearl Kurta",
+    "tagline": "Opulence in every pearl.",
+    "category": "Kurta Sets",
+    "price": "18999",
+    "cost_price": "8100",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/yuvrani-jaipur-pink-pearl.jpg"
+    ],
+    "description": "Hot pink silk thread and pearl hand-embroidered kurta set, an exclusive designer piece.",
+    "tags": [
+      "exclusive",
+      "party wear",
+      "pearl work"
+    ],
+    "gender": "women",
+    "stock": 5,
+    "status": "published"
+  },
+  {
+    "name": "Sage Green Viscose Silk Kurta",
+    "tagline": "Silken sage serenity.",
+    "category": "Kurtas",
+    "price": "1999",
+    "cost_price": "800",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://ethnicity.in/media/catalog/product/sage_green_kurta.jpg"
+    ],
+    "description": "Nylangan sage green viscose silk embroidered kurta with delicate thread work.",
+    "tags": [
+      "minimalist",
+      "office ethnic",
+      "silk blend"
+    ],
+    "gender": "women",
+    "stock": 30,
+    "status": "published"
+  },
+  {
+    "name": "Sap Green Ghagra Choli",
+    "tagline": "The forest’s festive bride.",
+    "category": "Lehengas",
+    "price": "14998",
+    "cost_price": "6200",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/sap_green_ghagra.jpg"
+    ],
+    "description": "Sap green viscose embroidered ghagra choli with heavy zardozi work.",
+    "tags": [
+      "wedding",
+      "lehenga",
+      "zardozi"
+    ],
+    "gender": "women",
+    "stock": 6,
+    "status": "published"
+  },
+  {
+    "name": "Peach Muslin Botanical Tunic",
+    "tagline": "Soft petals on muslin.",
+    "category": "Tunics",
+    "price": "1998",
+    "cost_price": "750",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/peach_muslin_tunic.jpg"
+    ],
+    "description": "Peach muslin botanical print tunic, breathable and stylish for 2026 summers.",
+    "tags": [
+      "casual",
+      "muslin",
+      "floral"
+    ],
+    "gender": "women",
+    "stock": 38,
+    "status": "published"
+  },
+  {
+    "name": "White & Blue Printed Gharara",
+    "tagline": "Porcelain patterns in motion.",
+    "category": "Gharara Sets",
+    "price": "9500",
+    "cost_price": "4100",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/diyarajvvir-white-blue-gharara.jpg"
+    ],
+    "description": "DiyaRajvvir white and blue georgette printed gharara set with modern floral motifs.",
+    "tags": [
+      "fusion",
+      "mehendi",
+      "gharara"
+    ],
+    "gender": "women",
+    "stock": 11,
+    "status": "published"
+  },
+  {
+    "name": "Grey Floral Silk Tunic",
+    "tagline": "Elegance in grey silk.",
+    "category": "Tunics",
+    "price": "1870",
+    "cost_price": "700",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/grey_silk_tunic.jpg"
+    ],
+    "description": "Grey silk berry floral print tunic with subtle sheen and a comfortable straight fit.",
+    "tags": [
+      "semi-formal",
+      "silk",
+      "minimalist"
+    ],
+    "gender": "women",
+    "stock": 25,
+    "status": "published"
+  },
+  {
+    "name": "Orange & Olive A-Line Set",
+    "tagline": "Earthy autumn hues.",
+    "category": "Kurta Sets",
+    "price": "8500",
+    "cost_price": "3400",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/saksham-neharicka-printed-set.jpg"
+    ],
+    "description": "Orange and olive green printed A-line kurta set by Saksham and Neharicka.",
+    "tags": [
+      "designer",
+      "day party",
+      "A-line"
+    ],
+    "gender": "women",
+    "stock": 9,
+    "status": "published"
+  },
+  {
+    "name": "Silver Tissue Co-Ord Set",
+    "tagline": "Moonlit metallic magic.",
+    "category": "Co-ords",
+    "price": "14998",
+    "cost_price": "6100",
+    "sizes": [
+      "XS",
+      "S",
+      "M"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/silver_tissue_coord.jpg"
+    ],
+    "description": "Silver tissue embroidered co-ord set with sequin work, perfect for cocktails.",
+    "tags": [
+      "cocktail",
+      "shimmer",
+      "trending"
+    ],
+    "gender": "women",
+    "stock": 7,
+    "status": "published"
+  },
+  {
+    "name": "Rama Green Chinnon Sharara",
+    "tagline": "The depth of the ocean.",
+    "category": "Sharara Sets",
+    "price": "13750",
+    "cost_price": "5900",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://taruni.in/cdn/shop/files/Rama_Green_Sharara.jpg"
+    ],
+    "description": "Rama green chinnon sharara set with heavy embroidery on the tunic.",
+    "tags": [
+      "wedding guest",
+      "festive",
+      "chinnon"
+    ],
+    "gender": "women",
+    "stock": 12,
+    "status": "published"
+  },
+  {
+    "name": "Cream Floral Tissue Anarkali",
+    "tagline": "Ethereal cream elegance.",
+    "category": "Anarkalis",
+    "price": "6999",
+    "cost_price": "2800",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.wforwoman.com/media/catalog/product/cream_tissue_anarkali.jpg"
+    ],
+    "description": "Cream floral printed tissue crepe sleeveless anarkali with straight pants.",
+    "tags": [
+      "reception",
+      "pastels",
+      "tissue crepe"
+    ],
+    "gender": "women",
+    "stock": 16,
+    "status": "published"
+  },
+  {
+    "name": "Red Silk Corset Lehenga",
+    "tagline": "Bold red, modern fit.",
+    "category": "Lehengas",
+    "price": "31790",
+    "cost_price": "14200",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://taruni.in/cdn/shop/files/Red_Silk_Corset_Lehenga.jpg"
+    ],
+    "description": "Vibrant red silk corset-style lehenga with traditional embroidery and a high-flare skirt.",
+    "tags": [
+      "bridal",
+      "trending 2026",
+      "silk"
+    ],
+    "gender": "women",
+    "stock": 4,
+    "status": "published"
+  },
+  {
+    "name": "Sea Green Gajji Silk Set",
+    "tagline": "Lustrous sea-foam silk.",
+    "category": "Kurta Sets",
+    "price": "15200",
+    "cost_price": "6500",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/twenty-nine-sea-green-silk.jpg"
+    ],
+    "description": "Sea green Gajji silk Dori embroidered kurta set with a luxurious sheen.",
+    "tags": [
+      "luxury silk",
+      "party wear",
+      "designer"
+    ],
+    "gender": "women",
+    "stock": 8,
+    "status": "published"
+  },
+  {
+    "name": "Yellow Chikankari Cotton Kurta",
+    "tagline": "Sunshine in cotton voile.",
+    "category": "Anarkalis",
+    "price": "2200",
+    "cost_price": "900",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.wforwoman.com/media/catalog/product/yellow_chikankari.jpg"
+    ],
+    "description": "Yellow chikankari anarkali kurta in soft cotton voile for everyday comfort.",
+    "tags": [
+      "haldi",
+      "casual",
+      "chikankari"
+    ],
+    "gender": "women",
+    "stock": 42,
+    "status": "published"
+  },
+  {
+    "name": "Azure Anita Dongre Culotte Set",
+    "tagline": "Luxury in macramé.",
+    "category": "Indo-Western",
+    "price": "175000",
+    "cost_price": "85000",
+    "sizes": [
+      "XS",
+      "S",
+      "M"
+    ],
+    "images": [
+      "https://www.anitadongre.com/media/catalog/product/elmyra_ivory_culotte.jpg"
+    ],
+    "description": "Elmyra embroidered macramé culotte set in ivory by Anita Dongre.",
+    "tags": [
+      "high luxury",
+      "designer",
+      "celebrity style"
+    ],
+    "gender": "women",
+    "stock": 2,
+    "status": "published"
+  },
+  {
+    "name": "Teal Fendi Salwar Suit",
+    "tagline": "Sequined teal sophistication.",
+    "category": "Suit Sets",
+    "price": "8969",
+    "cost_price": "3900",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/teal_fendi_suit.jpg"
+    ],
+    "description": "Teal green Fendi embroidered salwar suit with sequins and matching chiffon dupatta.",
+    "tags": [
+      "festive",
+      "party wear",
+      "teal"
+    ],
+    "gender": "women",
+    "stock": 20,
+    "status": "published"
+  },
+  {
+    "name": "Navy Mukaish Silk Anarkali",
+    "tagline": "Starlit midnight silk.",
+    "category": "Anarkalis",
+    "price": "35000",
+    "cost_price": "16500",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/payal-singhal-navy-anarkali.jpg"
+    ],
+    "description": "Payal Singhal navy mukaish silk mul embroidered anarkali set with a regal drape.",
+    "tags": [
+      "luxury",
+      "designer",
+      "evening"
+    ],
+    "gender": "women",
+    "stock": 3,
+    "status": "published"
+  },
+  {
+    "name": "Pink Geometric Kota Set",
+    "tagline": "Modernity in Kota fabric.",
+    "category": "Kurta Sets",
+    "price": "5260",
+    "cost_price": "2100",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.wforwoman.com/media/catalog/product/pink_kota_set.jpg"
+    ],
+    "description": "Pink geometric printed anarkali Kota kurta and straight pant with dupatta.",
+    "tags": [
+      "modern ethnic",
+      "daily",
+      "lightweight"
+    ],
+    "gender": "women",
+    "stock": 28,
+    "status": "published"
+  },
+  {
+    "name": "Brown Fendi Pearl Suit",
+    "tagline": "Earth tones with pearl grace.",
+    "category": "Suit Sets",
+    "price": "11998",
+    "cost_price": "5200",
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/brown_pearl_suit.jpg"
+    ],
+    "description": "Brown Fendi embroidered suit set featuring real mirror and pearl highlights.",
+    "tags": [
+      "festive",
+      "unique color",
+      "pearl work"
+    ],
+    "gender": "women",
+    "stock": 13,
+    "status": "published"
+  },
+  {
+    "name": "Multi-Colored Printed Gharara",
+    "tagline": "A kaleidoscope of florals.",
+    "category": "Gharara Sets",
+    "price": "12500",
+    "cost_price": "5800",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/diyarajvvir-multi-gharara.jpg"
+    ],
+    "description": "Vibrant multi-colored georgette printed gharara set by DiyaRajvvir.",
+    "tags": [
+      "party",
+      "vibrant",
+      "designer"
+    ],
+    "gender": "women",
+    "stock": 10,
+    "status": "published"
+  },
+  {
+    "name": "Amber Yellow Chanderi Kurta",
+    "tagline": "Warmth of Chanderi silk.",
+    "category": "Kurtas",
+    "price": "2499",
+    "cost_price": "1000",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://ethnicity.in/media/catalog/product/amber_yellow_kurta.jpg"
+    ],
+    "description": "Nylangan amber yellow viscose Chanderi embroidered kurta with a subtle glow.",
+    "tags": [
+      "festive",
+      "chanderi",
+      "haldi"
+    ],
+    "gender": "women",
+    "stock": 35,
+    "status": "published"
+  },
+  {
+    "name": "Purple Floral Satin Set",
+    "tagline": "Smooth satin blooms.",
+    "category": "Kurta Sets",
+    "price": "4999",
+    "cost_price": "1900",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.wforwoman.com/media/catalog/product/purple_satin_set.jpg"
+    ],
+    "description": "Purple floral printed embellished anarkali satin kurta with straight pants.",
+    "tags": [
+      "party",
+      "satin",
+      "floral"
+    ],
+    "gender": "women",
+    "stock": 20,
+    "status": "published"
+  },
+  {
+    "name": "Sap Green Ghagra Cutdana",
+    "tagline": "Intricate Cutdana sparkle.",
+    "category": "Lehengas",
+    "price": "15680",
+    "cost_price": "7100",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/sap_green_cutdana.jpg"
+    ],
+    "description": "Sap green viscose embroidered ghagra choli with heavy cutdana work.",
+    "tags": [
+      "bridal guest",
+      "lehenga",
+      "heavy work"
+    ],
+    "gender": "women",
+    "stock": 5,
+    "status": "published"
+  },
+  {
+    "name": "Mustard Muslin Botanical Tunic",
+    "tagline": "Sunshine and flowers.",
+    "category": "Tunics",
+    "price": "1998",
+    "cost_price": "750",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/mustard_muslin_tunic.jpg"
+    ],
+    "description": "Mustard muslin botanical print tunic, ideal for casual spring outings.",
+    "tags": [
+      "casual",
+      "bright",
+      "muslin"
+    ],
+    "gender": "women",
+    "stock": 30,
+    "status": "published"
+  },
+  {
+    "name": "Black Chanderi Floral Set",
+    "tagline": "Midnight garden charm.",
+    "category": "Kurta Sets",
+    "price": "14500",
+    "cost_price": "6100",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.perniaspopupshop.com/images/yuvrani-jaipur-black-chanderi.jpg"
+    ],
+    "description": "Yuvrani Jaipur exclusive black Chanderi floral printed kurta set.",
+    "tags": [
+      "designer",
+      "cocktail",
+      "black ethnic"
+    ],
+    "gender": "women",
+    "stock": 8,
+    "status": "published"
+  },
+  {
+    "name": "Pink Rayon Zardozi Dress",
+    "tagline": "Contemporary Pink Fusion.",
+    "category": "Dresses",
+    "price": "2598",
+    "cost_price": "1100",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/pink_zardozi_dress.jpg"
+    ],
+    "description": "Fuchsia rayon floral print dress featuring delicate zardozi work on the neck.",
+    "tags": [
+      "indo-western",
+      "vibrant",
+      "casual festive"
+    ],
+    "gender": "women",
+    "stock": 25,
+    "status": "published"
+  },
+  {
+    "name": "Olive Rayon Abstract Dress",
+    "tagline": "Modern art in ethnic cuts.",
+    "category": "Dresses",
+    "price": "935",
+    "cost_price": "400",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/olive_abstract_dress.jpg"
+    ],
+    "description": "Online exclusive olive rayon abstract print dress with a relaxed fit.",
+    "tags": [
+      "budget",
+      "modern",
+      "sale"
+    ],
+    "gender": "women",
+    "stock": 55,
+    "status": "published"
+  },
+  {
+    "name": "Sap Green Ghagra Zardozi",
+    "tagline": "Traditional Zardozi Luxury.",
+    "category": "Lehengas",
+    "price": "11698",
+    "cost_price": "5200",
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "images": [
+      "https://www.soch.com/media/catalog/product/sap_green_zardozi.jpg"
+    ],
+    "description": "Sap green viscose embroidered ghagra choli with detailed zardozi work.",
+    "tags": [
+      "festive",
+      "lehenga",
+      "traditional"
+    ],
+    "gender": "women",
+    "stock": 10,
+    "status": "published"
+  },
+  {
+    "name": "Cream & Yellow Chanderi Anarkali",
+    "tagline": "Warm Chanderi elegance.",
+    "category": "Anarkalis",
+    "price": "6140",
+    "cost_price": "2800",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "images": [
+      "https://www.wforwoman.com/media/catalog/product/cream_yellow_anarkali.jpg"
+    ],
+    "description": "Cream and yellow printed Chanderi anarkali kurta, pants, and dupatta set.",
+    "tags": [
+      "haldi",
+      "chanderi",
+      "elegant"
+    ],
+    "gender": "women",
+    "stock": 12,
+    "status": "published"
+  }
+]
