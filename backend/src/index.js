@@ -168,3 +168,5 @@ mountDynamicRoutes(app).then(() => {
 }).catch(err => {
     console.error('Failed to initialize dynamic apis:', err);
 });
+
+export default app;
