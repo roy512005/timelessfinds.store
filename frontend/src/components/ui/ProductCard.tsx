@@ -166,18 +166,40 @@ export function ProductCard({ p }: { p: Product }) {
 
 
                     {/* Product image */}
-                    <img
-                        src={resolveImg()}
-                        alt={title}
-                        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-105' : 'scale-100'}`}
-                        onError={(e) => { 
-                            const target = e.target as HTMLImageElement;
-                            const fallback = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80';
-                            if (target.src !== fallback) {
-                                target.src = fallback;
-                            }
-                        }}
-                    />
+                    {p.images && Array.isArray(p.images) && p.images.length > 1 ? (
+                        <>
+                            <img
+                                src={resolveImg()}
+                                alt={title}
+                                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${hovered ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+                                onError={(e) => { 
+                                    const target = e.target as HTMLImageElement;
+                                    const fallback = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80';
+                                    if (target.src !== fallback) target.src = fallback;
+                                }}
+                            />
+                            <img
+                                src={
+                                    typeof p.images[1] === 'string' 
+                                        ? p.images[1] 
+                                        : (p.images[1] as any).url || resolveImg()
+                                }
+                                alt={title}
+                                className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${hovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
+                            />
+                        </>
+                    ) : (
+                        <img
+                            src={resolveImg()}
+                            alt={title}
+                            className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-105' : 'scale-100'}`}
+                            onError={(e) => { 
+                                const target = e.target as HTMLImageElement;
+                                const fallback = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80';
+                                if (target.src !== fallback) target.src = fallback;
+                             }}
+                        />
+                    )}
 
                     {/* Add to Cart sliding overlay */}
                     <div

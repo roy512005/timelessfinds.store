@@ -5,9 +5,13 @@ import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/axios';
 import { ProductCard, ProductCardSkeleton, type Product } from '@/components/ui/ProductCard';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
 function DressesContent() {
     const searchParams = useSearchParams();
+    const [openFilters, setOpenFilters] = useState<string[]>(['categories', 'size', 'price', 'color']);
+    const toggleFilter = (f: string) => setOpenFilters(p => p.includes(f) ? p.filter(x => x !== f) : [...p, f]);
     const initialCategory = searchParams.get('category');
     const initialGender = searchParams.get('gender');
     
@@ -187,81 +191,115 @@ function DressesContent() {
                     {/* ── Filters Sidebar ───────────────────── */}
                     {filterOpen && (
                         <aside className="w-full md:w-52 shrink-0">
-                            <div className="sticky top-28 space-y-8">
-                                {/* Size */}
-                                <div>
-                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-900 mb-4 pb-2 border-b border-gray-100">Size</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {SIZES.map((s) => (
-                                            <button
-                                                key={s}
-                                                onClick={() => toggleSize(s)}
-                                                className={`w-10 h-10 text-xs font-bold border transition-all ${selectedSizes.includes(s)
-                                                    ? 'bg-black text-white border-black'
-                                                    : 'border-gray-200 text-gray-600 hover:border-black'
-                                                    }`}
-                                            >
-                                                {s}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Price Range */}
-                                <div>
-                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-900 mb-4 pb-2 border-b border-gray-100">Price Range</h3>
-                                    <div className="space-y-4">
-                                        <div className="flex items-center justify-between text-[11px] font-bold text-gray-400 uppercase tracking-widest">
-                                            <span>₹{priceRange.min}</span>
-                                            <span>₹{priceRange.max === 25000 ? '25,000+' : priceRange.max}</span>
-                                        </div>
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max="25000"
-                                            step="500"
-                                            value={priceRange.max}
-                                            onChange={(e) => setPriceRange(prev => ({ ...prev, max: parseInt(e.target.value) }))}
-                                            className="w-full accent-black h-1 bg-gray-100 rounded-lg appearance-none cursor-pointer"
-                                        />
-                                        <div className="flex gap-2">
-                                            {[1000, 5000, 10000, 15000].map((p) => (
-                                                <button
-                                                    key={p}
-                                                    onClick={() => setPriceRange({ min: 0, max: p })}
-                                                    className={`flex-1 py-1.5 border text-[10px] font-bold uppercase tracking-widest transition-all ${priceRange.max === p ? 'bg-black text-white border-black' : 'border-gray-100 text-gray-400 hover:border-gray-200'}`}
-                                                >
-                                                    Under {p/1000}k
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Color */}
-                                <div>
-                                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-gray-900 mb-4 pb-2 border-b border-gray-100">Color</h3>
-                                    <div className="flex flex-wrap gap-2.5">
-                                        {COLORS.map((c) => (
-                                            <button
-                                                key={c}
-                                                onClick={() => toggleColor(c)}
-                                                className={`w-7 h-7 rounded-full border-2 hover:border-black transition-all shadow-sm ${selectedColors.includes(c) ? 'border-black ring-2 ring-offset-1 ring-gray-300' : 'border-gray-200'}`}
-                                                style={{ backgroundColor: c }}
-                                                aria-label={`Color ${c}`}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Clear */}
-                                {(selectedSizes.length > 0 || selectedColors.length > 0) && (
-                                    <button
-                                        onClick={() => { setSelectedSizes([]); setSelectedColors([]); }}
-                                        className="text-xs text-rose-600 font-bold uppercase tracking-widest"
+                            <div className="sticky top-28 divide-y divide-gray-100">
+                                {/* Category Accordion */}
+                                <div className="py-3">
+                                    <button 
+                                        onClick={() => toggleFilter('categories')} 
+                                        className="flex items-center justify-between w-full text-xs font-bold uppercase tracking-[0.15em] text-gray-900"
                                     >
-                                        Clear All Filters
+                                        <span>Categories</span>
+                                        <ChevronDown size={14} className={`transition-transform duration-200 ${openFilters.includes('categories') ? 'rotate-180' : ''}`} />
                                     </button>
+                                    <AnimatePresence initial={false}>
+                                        {openFilters.includes('categories') && (
+                                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                                                <div className="flex flex-col gap-2 pt-3">
+                                                    {categoryTabs.filter(c => c !== 'All').map((cat) => (
+                                                        <button key={cat} onClick={() => setActiveCategory(cat)} className={`text-left text-xs font-medium uppercase tracking-wider transition-colors ${activeCategory === cat ? 'text-rose-600 font-bold' : 'text-gray-500 hover:text-black'}`}>
+                                                            {cat}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* Size Accordion */}
+                                <div className="py-3">
+                                    <button 
+                                        onClick={() => toggleFilter('size')} 
+                                        className="flex items-center justify-between w-full text-xs font-bold uppercase tracking-[0.15em] text-gray-900"
+                                    >
+                                        <span>Size</span>
+                                        <ChevronDown size={14} className={`transition-transform duration-200 ${openFilters.includes('size') ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    <AnimatePresence initial={false}>
+                                        {openFilters.includes('size') && (
+                                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                                                <div className="flex flex-wrap gap-2 pt-3">
+                                                    {SIZES.map((s) => (
+                                                        <button key={s} onClick={() => toggleSize(s)} className={`w-9 h-9 text-xs font-bold border transition-all ${selectedSizes.includes(s) ? 'bg-black text-white border-black' : 'border-gray-200 text-gray-600 hover:border-black'}`}>
+                                                            {s}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* Price Accordion */}
+                                <div className="py-3">
+                                    <button 
+                                        onClick={() => toggleFilter('price')} 
+                                        className="flex items-center justify-between w-full text-xs font-bold uppercase tracking-[0.15em] text-gray-900"
+                                    >
+                                        <span>Price Range</span>
+                                        <ChevronDown size={14} className={`transition-transform duration-200 ${openFilters.includes('price') ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    <AnimatePresence initial={false}>
+                                        {openFilters.includes('price') && (
+                                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                                                <div className="space-y-3 pt-3">
+                                                    <div className="flex items-center justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                                        <span>₹{priceRange.min}</span>
+                                                        <span>₹{priceRange.max === 25000 ? '25k+' : priceRange.max}</span>
+                                                    </div>
+                                                    <input type="range" min="0" max="25000" step="500" value={priceRange.max} onChange={(e) => setPriceRange(prev => ({ ...prev, max: parseInt(e.target.value) }))} className="w-full accent-black h-1 bg-gray-100 rounded-lg appearance-none cursor-pointer" />
+                                                    <div className="flex flex-wrap gap-1">
+                                                        {[1000, 5000, 10000].map((p) => (
+                                                            <button key={p} onClick={() => setPriceRange({ min: 0, max: p })} className={`flex-1 py-1 px-1 text-center border text-[9px] font-bold uppercase tracking-widest transition-all ${priceRange.max === p ? 'bg-black text-white border-black' : 'border-gray-100 text-gray-400'}`}>
+                                                                &lt;{p/1000}k
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* Color Accordion */}
+                                <div className="py-3">
+                                    <button 
+                                        onClick={() => toggleFilter('color')} 
+                                        className="flex items-center justify-between w-full text-xs font-bold uppercase tracking-[0.15em] text-gray-900"
+                                    >
+                                        <span>Color</span>
+                                        <ChevronDown size={14} className={`transition-transform duration-200 ${openFilters.includes('color') ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    <AnimatePresence initial={false}>
+                                        {openFilters.includes('color') && (
+                                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                                                <div className="flex flex-wrap gap-2 pt-3">
+                                                    {COLORS.map((c) => (
+                                                        <button key={c} onClick={() => toggleColor(c)} className={`w-6 h-6 rounded-full border hover:scale-110 transition-all ${selectedColors.includes(c) ? 'ring-2 ring-offset-1 ring-black' : 'border-gray-200'}`} style={{ backgroundColor: c }} aria-label={c} />
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* Clear Filters */}
+                                {(selectedSizes.length > 0 || selectedColors.length > 0) && (
+                                    <div className="py-3 border-t-0">
+                                        <button onClick={() => { setSelectedSizes([]); setSelectedColors([]); }} className="text-xs text-rose-600 font-bold uppercase tracking-widest">
+                                            Clear Filters
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                         </aside>

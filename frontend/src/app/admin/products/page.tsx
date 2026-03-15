@@ -21,7 +21,7 @@ export default function AdminProductsPage() {
     const [form, setForm] = useState({
         name: '', price: '', discountPrice: '', stock: '',
         category: '', gender: 'Women', sizes: 'S, M, L, XL',
-        description: '', summary: '', images: '', tags: ''
+        description: '', summary: '', images: '', tags: '', badge: ''
     });
 
     const { data, isLoading } = useQuery({
@@ -53,7 +53,7 @@ export default function AdminProductsPage() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['admin-products'] });
             setShowAddForm(false);
-            setForm({ name: '', price: '', discountPrice: '', stock: '', category: '', gender: 'Women', sizes: 'S, M, L, XL', description: '', summary: '', images: '', tags: '' });
+            setForm({ name: '', price: '', discountPrice: '', stock: '', category: '', gender: 'Women', sizes: 'S, M, L, XL', description: '', summary: '', images: '', tags: '', badge: '' });
             toast.success('Product added successfully!');
         },
         onError: (err: any) => toast.error(err.response?.data?.message || 'Failed to add product')
@@ -72,7 +72,8 @@ export default function AdminProductsPage() {
             tags: form.tags.split(',').map(t => t.trim()).filter(Boolean),
             images: form.images ? [{ url: form.images }] : [],
             description: form.description,
-            summary: form.summary
+            summary: form.summary,
+            badge: form.badge || undefined
         });
     };
 
@@ -142,6 +143,17 @@ export default function AdminProductsPage() {
                     <div>
                         <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Available Sizes</label>
                         <input className="w-full border px-3 py-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-black" value={form.sizes} onChange={e => setForm(p => ({ ...p, sizes: e.target.value }))} placeholder="S, M, L" />
+                    </div>
+
+                    <div>
+                        <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Product Badge / Tag</label>
+                        <select className="w-full border px-3 py-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-black bg-white" value={form.badge} onChange={e => setForm(p => ({ ...p, badge: e.target.value }))}>
+                            <option value="">None</option>
+                            <option value="Best Seller">Best Seller</option>
+                            <option value="Trending">Trending</option>
+                            <option value="New Arrival">New Arrival</option>
+                            <option value="Exclusive">Exclusive</option>
+                        </select>
                     </div>
 
                     <div>

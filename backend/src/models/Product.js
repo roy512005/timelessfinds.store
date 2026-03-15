@@ -112,6 +112,10 @@ const productSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        badge: {
+            type: String,
+            default: '',
+        },
         isFlashSale: {
             status: { type: Boolean, default: false },
             endTime: { type: Date },
