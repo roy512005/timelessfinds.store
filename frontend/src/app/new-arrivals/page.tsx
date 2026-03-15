@@ -35,7 +35,7 @@ export default function NewArrivalsPage() {
     const { data: dbData, isLoading } = useQuery({
         queryKey: ['new-arrivals', sort, selectedSizes, selectedColors],
         queryFn: async () => {
-            const { data } = await api.get('/products', { params: { sort } });
+            const { data } = await api.get('/products', { params: { sort, limit: 120 } });
             const items = (data.products || data || []) as Product[];
 
             const grouped: Record<string, any[]> = {};

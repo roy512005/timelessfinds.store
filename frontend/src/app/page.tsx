@@ -64,7 +64,7 @@ export default function Home() {
     queryFn: async () => {
       // Group multiple categories in a single request for speed
       // Fetch all for speed, no category limits
-      const res = await api.get('/products?gender=Women&limit=25');
+      const res = await api.get('/products?gender=Women&limit=120');
       const items = res.data || [];
       const grouped: Record<string, any[]> = {};
       items.forEach((p: any) => {
@@ -91,7 +91,7 @@ export default function Home() {
     queryFn: async () => {
       // Group multiple categories in a single request for speed
       // Fetch all for speed, no category limits
-      const res = await api.get('/products?gender=Women&sort=new&limit=25');
+      const res = await api.get('/products?gender=Women&sort=new&limit=120');
       const items = res.data || [];
       const grouped: Record<string, any[]> = {};
       items.forEach((p: any) => {
