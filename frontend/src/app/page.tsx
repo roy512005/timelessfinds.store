@@ -59,28 +59,50 @@ export default function Home() {
     staleTime: 5 * 60 * 1000,
   });
 
-  const PRIORITY_CATS = ['Lehenga Choli', 'Kurtis', 'Dresses', 'Suit Sets', 'Co-ord Sets'];
+  // Priority category keywords (case-insensitive partial match)
+  const PRIORITY_KEYWORDS = ['lehenga', 'kurti', 'kurta', 'dress', 'suit', 'co-ord', 'coord', 'anarkali', 'salwar'];
+  const EXCLUDE_KEYWORDS = ['saree', 'sari', 'shari'];
 
-  // Helper: blend items from only priority categories in round-robin order
+  // Helper: blend items prioritizing dress categories, excluding saree
   const blendByCategory = (items: any[], limit: number, skip = 0) => {
+    if (!items || items.length === 0) return [];
+
+    const getPriority = (cat: string) => {
+      const c = (cat || '').toLowerCase();
+      if (EXCLUDE_KEYWORDS.some(k => c.includes(k))) return 99; // push saree to end
+      const idx = PRIORITY_KEYWORDS.findIndex(k => c.includes(k));
+      return idx === -1 ? 50 : idx; // lower = higher priority
+    };
+
+    // Group by category
     const grouped: Record<string, any[]> = {};
     items.forEach((p: any) => {
-      const cat = p.category || '';
-      if (!PRIORITY_CATS.includes(cat)) return; // exclude non-priority cats like Saree
+      const cat = p.category || 'other';
       if (!grouped[cat]) grouped[cat] = [];
       grouped[cat].push(p);
     });
-    // Skip first N from each group to ensure New Arrivals differ from Trending
+
+    // Sort category keys by priority
+    const sortedCats = Object.keys(grouped).sort((a, b) => getPriority(a) - getPriority(b));
+
+    // Separate priority cats from rest (saree etc.)
+    const priorityCats = sortedCats.filter(c => getPriority(c) < 90);
+    const otherCats = sortedCats.filter(c => getPriority(c) >= 90);
+
+    // Skip first N items per category for New Arrivals differentiation
     if (skip > 0) {
-      PRIORITY_CATS.forEach(cat => { if (grouped[cat]) grouped[cat] = grouped[cat].slice(skip); });
+      sortedCats.forEach(cat => { grouped[cat] = grouped[cat].slice(skip); });
     }
+
     const mixed: any[] = [];
-    // Pass 1: one from each priority category in order
-    PRIORITY_CATS.forEach(key => {
+
+    // Pass 1: one item from each priority category in order
+    priorityCats.forEach(key => {
       if (grouped[key]?.length > 0 && mixed.length < limit) mixed.push(grouped[key].shift());
     });
-    // Pass 2: round-robin fill remainder
-    const keys = PRIORITY_CATS.filter(k => grouped[k]?.length > 0);
+
+    // Pass 2: round-robin from priority cats
+    const keys = [...priorityCats].filter(k => grouped[k]?.length > 0);
     let i = 0;
     while (mixed.length < limit && keys.length > 0) {
       const key = keys[i % keys.length];
@@ -91,6 +113,22 @@ export default function Home() {
         keys.splice(keys.indexOf(key), 1);
       }
     }
+
+    // Pass 3: fallback — if nothing matched, use all items (saree etc.) so section always shows
+    if (mixed.length === 0) {
+      const allKeys = [...otherCats, ...priorityCats].filter(k => grouped[k]?.length > 0);
+      let j = 0;
+      while (mixed.length < limit && allKeys.length > 0) {
+        const key = allKeys[j % allKeys.length];
+        if (grouped[key]?.length > 0) {
+          mixed.push(grouped[key].shift());
+          j++;
+        } else {
+          allKeys.splice(j % allKeys.length, 1);
+        }
+      }
+    }
+
     return mixed;
   };
 
