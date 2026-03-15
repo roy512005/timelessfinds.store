@@ -201,7 +201,7 @@ export default function Home() {
     <div className="bg-white min-h-screen font-sans">
 
       {/* ── 1. Hero Section ─────────────────────────── */}
-      <section id="hero" className="relative h-[92vh] min-h-[560px] flex items-center overflow-hidden bg-[#0a0a0a]">
+      <section id="hero" className="relative h-auto aspect-[9/16] md:aspect-auto md:h-[92vh] md:min-h-[560px] flex items-center overflow-hidden bg-[#0a0a0a]">
         <div className="absolute inset-0 w-full h-full z-0">
           <Swiper
             modules={[Autoplay]}
@@ -239,7 +239,7 @@ export default function Home() {
             <span className="h-px w-8 bg-rose-400 inline-block" />
             {hero?.subtitle || "TIMELESS FINDS"}
           </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-black text-white leading-[1.05] mb-6 whitespace-pre-line drop-shadow-lg">
+          <h1 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-black text-white leading-[1.05] mb-6 whitespace-pre-line drop-shadow-lg">
             {hero?.title || "Own\nThe Room."}
           </h1>
           <p className="text-gray-300 text-base md:text-lg font-light max-w-md mb-10 leading-relaxed drop-shadow-md">
@@ -368,13 +368,13 @@ export default function Home() {
       {/* ── 4. Trending (max 10) ───────────────────── */}
       <section id="trending" className="bg-[#fafaf9] py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
+          <div className="flex items-end justify-between mb-8 gap-4 pb-2 border-b border-gray-100/50">
             <div>
-              <p className="text-rose-500 text-xs font-bold uppercase tracking-[0.25em] mb-3">What Everyone&#39;s Wearing</p>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">Trending Now</h2>
+              <p className="text-rose-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] mb-1.5">What Everyone&#39;s Wearing</p>
+              <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900">Trending Now</h2>
             </div>
-            <Link href="/dresses?tag=trending" className="text-sm font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors self-start md:self-auto">
-              View All →
+            <Link href="/dresses?tag=trending" className="text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors">
+              View All
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-12">
@@ -393,13 +393,13 @@ export default function Home() {
 
       {/* ── 5. New Arrivals (max 10) ───────────────── */}
       <section id="new-arrivals" className="max-w-7xl mx-auto px-4 py-20">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
+        <div className="flex items-end justify-between mb-8 gap-4 pb-2 border-b border-gray-100/50">
           <div>
-            <p className="text-rose-500 text-xs font-bold uppercase tracking-[0.25em] mb-3">Just Dropped</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">New Arrivals</h2>
+            <p className="text-rose-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] mb-1.5">Just Dropped</p>
+            <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900">New Arrivals</h2>
           </div>
-          <Link href="/new-arrivals" className="text-sm font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors self-start md:self-auto">
-            View All →
+          <Link href="/new-arrivals" className="text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors">
+            View All
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-12">
@@ -419,13 +419,13 @@ export default function Home() {
       {boysProducts.length > 0 && (
         <section id="boys-collection" className="bg-[#fcfaf7] py-20">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
+            <div className="flex items-end justify-between mb-8 gap-4 pb-2 border-b border-gray-100/50">
               <div>
-                <p className="text-rose-500 text-xs font-bold uppercase tracking-[0.25em] mb-3">For the Gentlemen</p>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">Boys&apos; Ethnic Wear</h2>
+                <p className="text-rose-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] mb-1.5">For the Gentlemen</p>
+                <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900">Boys&apos; Ethnic Wear</h2>
               </div>
-              <Link href="/dresses?gender=men" className="text-sm font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors self-start md:self-auto">
-                View All →
+              <Link href="/dresses?gender=men" className="text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors">
+                View All
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-12">
@@ -662,19 +662,19 @@ function CategoryProductSection({ category }: { category: any }) {
   if (products.length === 0) return null;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16 border-t border-gray-100">
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-4">
+    <section className="max-w-7xl mx-auto px-4 py-12 border-t border-gray-100">
+      <div className="flex items-end justify-between mb-8 gap-4 pb-2 border-b border-gray-100/50">
         <div>
-          <p className="text-rose-500 text-xs font-bold uppercase tracking-[0.25em] mb-2">{category.name}</p>
-          <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900">
+          <p className="text-rose-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] mb-1">{category.name}</p>
+          <h2 className="text-xl md:text-2xl font-serif font-bold text-gray-900">
             Shop {category.name}
           </h2>
         </div>
         <Link
           href={`/dresses?category=${category.slug || category.name?.toLowerCase()}`}
-          className="text-sm font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors self-start md:self-auto"
+          className="text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors"
         >
-          View All →
+          View All
         </Link>
       </div>
 

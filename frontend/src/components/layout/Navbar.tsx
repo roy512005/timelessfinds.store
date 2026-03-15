@@ -327,7 +327,7 @@ export const Navbar = () => {
                                         key={label}
                                         href={href}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className={`text-base font-medium uppercase tracking-widest ${label === 'Sale' ? 'text-rose-600' : 'text-gray-800'
+                                        className={`text-xs font-bold uppercase tracking-widest ${label === 'Sale' ? 'text-rose-600' : 'text-gray-800'
                                             }`}
                                     >
                                         {label}
