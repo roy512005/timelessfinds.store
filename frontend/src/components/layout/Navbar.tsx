@@ -64,7 +64,7 @@ export const Navbar = () => {
     return (
         <div className="sticky top-0 z-50">
             {/* ── Announcement Bar ─────────────────────── */}
-            <div className="bg-black text-white text-center py-2.5 text-[11px] font-semibold tracking-[0.15em] uppercase">
+            <div className="bg-black text-white text-center py-1 text-[9px] font-bold tracking-[0.15em] uppercase">
                 {settings?.topBannerText || 'Free Shipping Over ₹999 | Easy Returns & Exchanges'}
             </div>
 

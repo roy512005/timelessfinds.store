@@ -108,49 +108,6 @@ export default function AdminSettingsPage() {
                         </div>
                     </div>
                 </div>
-
-                {/* Notifications */}
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 lg:col-span-2">
-                    <div className="flex items-center gap-2 mb-5 pb-3 border-b">
-                        <Bell className="w-5 h-5 text-amber-500" />
-                        <h2 className="font-bold text-gray-900">Notification System</h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Notification Email</label>
-                            <input type="email" className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black"
-                                value={settings.notificationEmail} onChange={e => update('notificationEmail', e.target.value)} placeholder="admin@yourdomain.com" />
-                        </div>
-                        {[{ key: 'notificationSMS', label: 'SMS Notifications', desc: 'Send updates via SMS' },
-                        { key: 'notificationPush', label: 'Push Notifications', desc: 'Browser push alerts' }
-                        ].map(opt => (
-                            <div key={opt.key} className="flex items-start gap-4 p-4 border border-gray-200 rounded-xl">
-                                <button
-                                    onClick={() => update(opt.key, !(settings as any)[opt.key])}
-                                    className={`w-12 h-6 rounded-full transition-colors flex-shrink-0 mt-0.5 ${(settings as any)[opt.key] ? 'bg-black' : 'bg-gray-200'}`}
-                                >
-                                    <div className={`w-5 h-5 bg-white rounded-full shadow transition-transform mx-0.5 ${(settings as any)[opt.key] ? 'translate-x-6' : 'translate-x-0'}`} />
-                                </button>
-                                <div>
-                                    <p className="font-bold text-sm text-gray-900">{opt.label}</p>
-                                    <p className="text-xs text-gray-400">{opt.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="mt-6 p-4 bg-amber-50 border border-amber-100 rounded-xl">
-                        <p className="text-sm font-bold text-amber-700 mb-1">Announcement Sender</p>
-                        <div className="flex gap-3 mt-3">
-                            {['Flash Sale 🔥', 'New Collection 👗', 'Festival Discount 🎉'].map(msg => (
-                                <button key={msg} onClick={() => toast.success(`Notification queued: "${msg}"`)}
-                                    className="px-3 py-1.5 bg-white border border-amber-200 text-amber-800 text-xs font-bold rounded-lg hover:bg-amber-100 transition-colors">
-                                    {msg}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );
