@@ -30,6 +30,10 @@ export const getProducts = async (req, res) => {
             ? { gender: { $regex: `^${req.query.gender}$`, $options: 'i' } }
             : {};
 
+        const badge = req.query.badge
+            ? { badge: { $regex: req.query.badge, $options: 'i' } }
+            : {};
+
         const collection = req.query.collection
             ? { tags: { $in: [req.query.collection] } }
             : {};
@@ -43,7 +47,7 @@ export const getProducts = async (req, res) => {
 
         const limit = req.query.limit ? parseInt(req.query.limit) : 0;
 
-        let query = Product.find({ ...keyword, ...category, ...size, ...color, ...tag, ...collection, ...gender, ...priceFilter })
+        let query = Product.find({ ...keyword, ...category, ...size, ...color, ...tag, ...collection, ...gender, ...badge, ...priceFilter })
             .sort(sortObj);
         if (limit > 0) query = query.limit(limit);
 

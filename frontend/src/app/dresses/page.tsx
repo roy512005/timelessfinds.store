@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, Suspense, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/axios';
 import { ProductCard, ProductCardSkeleton, type Product } from '@/components/ui/ProductCard';
@@ -10,6 +10,7 @@ import { ChevronDown } from 'lucide-react';
 
 function DressesContent() {
     const searchParams = useSearchParams();
+    const router = useRouter();
     const [openFilters, setOpenFilters] = useState<string[]>(['categories', 'size', 'price', 'color']);
     const toggleFilter = (f: string) => setOpenFilters(p => p.includes(f) ? p.filter(x => x !== f) : [...p, f]);
     const initialCategory = searchParams.get('category');
@@ -17,6 +18,7 @@ function DressesContent() {
     
     const [activeCategory, setActiveCategory] = useState('All');
     const [activeGender, setActiveGender] = useState<string | null>(null);
+    const [activeBadge, setActiveBadge] = useState<string | null>(null);
 
     const { data: rawCategories } = useQuery({
         queryKey: ['categories'],
@@ -48,6 +50,21 @@ function DressesContent() {
         }
     }, [initialCategory, initialGender, rawCategories]);
 
+    useEffect(() => {
+        // Hydrate other filters from URL
+        const sizes = searchParams.get('size');
+        const colors = searchParams.get('color');
+        const maxPrice = searchParams.get('maxPrice');
+        const badge = searchParams.get('badge');
+        const sortParam = searchParams.get('sort');
+
+        if (sizes) setSelectedSizes(sizes.split(','));
+        if (colors) setSelectedColors(colors.split(','));
+        if (maxPrice) setPriceRange(prev => ({ ...prev, max: parseInt(maxPrice) }));
+        if (badge) setActiveBadge(badge);
+        if (sortParam) setSort(sortParam);
+    }, [searchParams]);
+
     const [sort, setSort] = useState('top');
     const [search, setSearch] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -60,6 +77,21 @@ function DressesContent() {
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
     const [selectedColors, setSelectedColors] = useState<string[]>([]);
     const [priceRange, setPriceRange] = useState({ min: 0, max: 25000 });
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (activeCategory !== 'All') params.set('category', activeCategory);
+        if (activeGender) params.set('gender', activeGender);
+        if (activeBadge) params.set('badge', activeBadge);
+        if (selectedSizes.length > 0) params.set('size', selectedSizes.join(','));
+        if (selectedColors.length > 0) params.set('color', selectedColors.join(','));
+        if (priceRange.min > 0) params.set('minPrice', priceRange.min.toString());
+        if (priceRange.max < 25000) params.set('maxPrice', priceRange.max.toString());
+        if (sort !== 'top') params.set('sort', sort);
+
+        const queryStr = params.toString();
+        router.push(queryStr ? `?${queryStr}` : '/dresses', { scroll: false });
+    }, [activeCategory, activeGender, activeBadge, selectedSizes, selectedColors, priceRange.max, sort, activeCategory, activeGender, activeBadge]);
 
     const SORT_OPTIONS = [
         { value: 'top', label: 'Top Rated' },
@@ -83,11 +115,12 @@ function DressesContent() {
     const categoryTabs = ['All', ...(rawCategories || []).map((c) => c.name)];
 
     const { data: dbData, isLoading } = useQuery({
-        queryKey: ['products', activeCategory, activeGender, selectedSizes, selectedColors, debouncedSearch, priceRange],
+        queryKey: ['products', activeCategory, activeGender, activeBadge, selectedSizes, selectedColors, debouncedSearch, priceRange],
         queryFn: async () => {
             let url = '/products?';
             if (activeCategory !== 'All') url += `category=${encodeURIComponent(activeCategory)}&`;
             if (activeGender) url += `gender=${activeGender}&`;
+            if (activeBadge) url += `badge=${encodeURIComponent(activeBadge)}&`;
             if (debouncedSearch) url += `keyword=${encodeURIComponent(debouncedSearch)}&`;
             if (priceRange.min > 0) url += `minPrice=${priceRange.min}&`;
             if (priceRange.max < 25000) url += `maxPrice=${priceRange.max}&`;
@@ -143,21 +176,7 @@ function DressesContent() {
                         </button>
                     </div>
 
-                    {/* Category Pills */}
-                    <div className="flex flex-wrap gap-2 flex-1 justify-center">
-                        {categoryTabs.map((cat: string) => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`px-4 py-1.5 text-xs font-bold uppercase tracking-widest transition-all ${activeCategory === cat
-                                    ? 'bg-black text-white'
-                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                    }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
+                    {/* Category Pills - Removed as requested */}
 
                     <div className="flex items-center gap-4">
                         {/* Search */}
