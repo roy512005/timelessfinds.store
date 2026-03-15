@@ -38,9 +38,12 @@ export const getProducts = async (req, res) => {
             ? { tags: { $in: [req.query.collection] } }
             : {};
 
-        const minPrice = req.query.minPrice ? parseFloat(req.query.minPrice) : 0;
-        const maxPrice = req.query.maxPrice ? parseFloat(req.query.maxPrice) : Infinity;
-        const priceFilter = { price: { $gte: minPrice, $lte: maxPrice } };
+        const priceFilter = {};
+        if (req.query.minPrice || req.query.maxPrice) {
+            priceFilter.price = {};
+            if (req.query.minPrice) priceFilter.price.$gte = parseFloat(req.query.minPrice);
+            if (req.query.maxPrice) priceFilter.price.$lte = parseFloat(req.query.maxPrice);
+        }
 
         let sortObj = { createdAt: -1 };
         if (req.query.sort === 'new') sortObj = { createdAt: -1 };
@@ -56,8 +59,15 @@ export const getProducts = async (req, res) => {
         if (limit > 0) query = query.skip(skip).limit(limit);
 
         const products = await query;
-        res.json({ products, page, pages: limit > 0 ? Math.ceil(totalCount / limit) : 1, total: totalCount });
+
+        // Backward compatibility: return array for old controllers without page params
+        if (req.query.page) {
+            res.json({ products, page, pages: limit > 0 ? Math.ceil(totalCount / limit) : 1, total: totalCount });
+        } else {
+            res.json(products);
+        }
     } catch (error) {
+        console.error("GET PRODUCTS ERROR:", error);
         res.status(500).json({ message: error.message });
     }
 };
