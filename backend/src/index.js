@@ -69,6 +69,27 @@ app.use('/api/home', homeRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api/collections', collectionRoutes);
 
+app.get('/api/diagnostics', async (req, res) => {
+    try {
+        const { default: mongoose } = await import('mongoose');
+        const dbStatus = mongoose.connection.readyState;
+        const statusMap = ['Disconnected', 'Connected', 'Connecting', 'Disconnecting'];
+        
+        res.json({
+            success: true,
+            database: {
+                status: statusMap[dbStatus] || 'Unknown',
+                uri_set: !!process.env.MONGO_URI,
+                uri_length: process.env.MONGO_URI ? process.env.MONGO_URI.length : 0
+            },
+            node_version: process.version,
+            vercel: !!process.env.VERCEL
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 // ── Seed all products endpoint (no auth) ────────────────────────────────────
 app.post('/api/seed-all-products', async (req, res) => {
     try {
