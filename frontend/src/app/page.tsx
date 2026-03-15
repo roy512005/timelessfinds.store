@@ -62,26 +62,8 @@ export default function Home() {
   const { data: trendingProducts = [] } = useQuery({
     queryKey: ['trending-home'],
     queryFn: async () => {
-      // Group multiple categories in a single request for speed
-      // Fetch all for speed, no category limits
-      const res = await api.get('/products?gender=Women&limit=25');
-      const items = res.data || [];
-      const grouped: Record<string, any[]> = {};
-      items.forEach((p: any) => {
-        const cat = p.category || 'other';
-        if (!grouped[cat]) grouped[cat] = [];
-        grouped[cat].push(p);
-      });
-      const mixed: any[] = [];
-      const keys = Object.keys(grouped);
-      let i = 0;
-      while (mixed.length < 10 && keys.length > 0) {
-        const key = keys[i % keys.length];
-        if (grouped[key].length > 0) mixed.push(grouped[key].shift());
-        else keys.splice(i % keys.length, 1);
-        if (grouped[key]?.length > 0) i++;
-      }
-      return mixed.length > 0 ? mixed : items.slice(0, 10);
+      const res = await api.get('/products/trending?limit=25');
+      return (res.data || []) as any[];
     },
     staleTime: 5 * 60 * 1000,
   });

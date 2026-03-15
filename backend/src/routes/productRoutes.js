@@ -2,6 +2,7 @@ import express from 'express';
 import {
     getProducts,
     getProductById,
+    getTrendingProducts,
     searchProducts,
     createProductReview,
     getFilters
@@ -13,6 +14,7 @@ const router = express.Router();
 router.route('/').get(getProducts);
 router.route('/filters').get(getFilters);
 router.route('/search').get(searchProducts);
+router.route('/trending').get(getTrendingProducts);
 router.route('/:id').get(getProductById);
 
 router.route('/:id/reviews')

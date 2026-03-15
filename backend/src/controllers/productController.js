@@ -1,4 +1,5 @@
 import Product from '../models/Product.js';
+import Order from '../models/Order.js';
 
 export const getProducts = async (req, res) => {
     try {
@@ -68,6 +69,60 @@ export const getProducts = async (req, res) => {
         }
     } catch (error) {
         console.error("GET PRODUCTS ERROR:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Get trending products (most ordered in last 7 days)
+// @route   GET /api/products/trending
+export const getTrendingProducts = async (req, res) => {
+    try {
+        const limit = req.query.limit ? parseInt(req.query.limit) : 20;
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+        // Aggregate orders from last 7 days — sum qty per product
+        const topProductIds = await Order.aggregate([
+            { $match: { createdAt: { $gte: sevenDaysAgo } } },
+            { $unwind: '$orderItems' },
+            { $group: { _id: '$orderItems.product', totalQty: { $sum: '$orderItems.qty' } } },
+            { $sort: { totalQty: -1 } },
+            { $limit: limit * 2 }, // fetch extra to allow category blending
+        ]);
+
+        let products = [];
+        if (topProductIds.length > 0) {
+            const ids = topProductIds.map(t => t._id);
+            const docs = await Product.find({ _id: { $in: ids } });
+            // Preserve order-rank order
+            const docMap = Object.fromEntries(docs.map(d => [d._id.toString(), d]));
+            products = topProductIds.map(t => docMap[t._id?.toString()]).filter(Boolean);
+        }
+
+        // Fallback: if no orders yet, use rating-based top products
+        if (products.length < 4) {
+            products = await Product.find().sort({ rating: -1, numReviews: -1 }).limit(limit);
+        }
+
+        // Blend by category for variety (round-robin)
+        const grouped = {};
+        products.forEach(p => {
+            const cat = p.category || 'other';
+            if (!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(p);
+        });
+        const mixed = [];
+        const keys = Object.keys(grouped);
+        let i = 0;
+        while (mixed.length < limit && keys.length > 0) {
+            const key = keys[i % keys.length];
+            if (grouped[key].length > 0) mixed.push(grouped[key].shift());
+            else keys.splice(i % keys.length, 1);
+            if (grouped[key]?.length > 0) i++;
+        }
+
+        res.json(mixed.length > 0 ? mixed : products.slice(0, limit));
+    } catch (error) {
+        console.error('getTrendingProducts error:', error.message);
         res.status(500).json({ message: error.message });
     }
 };

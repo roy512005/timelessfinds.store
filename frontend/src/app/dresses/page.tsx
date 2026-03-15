@@ -21,6 +21,7 @@ function DressesContent() {
     const [activeCategory, setActiveCategory] = useState('All');
     const [activeGender, setActiveGender] = useState<string | null>(null);
     const [activeBadge, setActiveBadge] = useState<string | null>(null);
+    const [activeTag, setActiveTag] = useState<string | null>(() => searchParams.get('tag'));
 
     const [page, setPage] = useState(1);
     const [allItems, setAllItems] = useState<Product[]>([]);
@@ -64,10 +65,13 @@ function DressesContent() {
         const badge = searchParams.get('badge');
         const sortParam = searchParams.get('sort');
 
+        const tag = searchParams.get('tag');
+
         if (sizes) setSelectedSizes(sizes.split(','));
         if (colors) setSelectedColors(colors.split(','));
         if (maxPrice) setPriceRange(prev => ({ ...prev, max: parseInt(maxPrice) }));
         if (badge) setActiveBadge(badge);
+        if (tag) setActiveTag(tag);
         if (sortParam) setSort(sortParam);
     }, [searchParams]);
 
@@ -89,6 +93,7 @@ function DressesContent() {
         if (activeCategory !== 'All') params.set('category', activeCategory);
         if (activeGender) params.set('gender', activeGender);
         if (activeBadge) params.set('badge', activeBadge);
+        if (activeTag) params.set('tag', activeTag);
         if (selectedSizes.length > 0) params.set('size', selectedSizes.join(','));
         if (selectedColors.length > 0) params.set('color', selectedColors.join(','));
         if (priceRange.min > 0) params.set('minPrice', priceRange.min.toString());
@@ -100,7 +105,7 @@ function DressesContent() {
         
         // Reset page triggers
         setPage(1);
-    }, [activeCategory, activeGender, activeBadge, selectedSizes, selectedColors, priceRange.max, sort, activeCategory, activeGender, activeBadge]);
+    }, [activeCategory, activeGender, activeBadge, activeTag, selectedSizes, selectedColors, priceRange.max, sort]);
 
     const SORT_OPTIONS = [
         { value: 'top', label: 'Top Rated' },
@@ -124,12 +129,13 @@ function DressesContent() {
     const categoryTabs = ['All', ...(rawCategories || []).map((c) => c.name)];
 
     const { data: dbData, isLoading } = useQuery({
-        queryKey: ['products', activeCategory, activeGender, activeBadge, selectedSizes, selectedColors, debouncedSearch, priceRange, page],
+        queryKey: ['products', activeCategory, activeGender, activeBadge, activeTag, selectedSizes, selectedColors, debouncedSearch, priceRange, page],
         queryFn: async () => {
             let url = '/products?';
             if (activeCategory !== 'All') url += `category=${encodeURIComponent(activeCategory)}&`;
             if (activeGender) url += `gender=${activeGender}&`;
             if (activeBadge) url += `badge=${encodeURIComponent(activeBadge)}&`;
+            if (activeTag) url += `tag=${encodeURIComponent(activeTag)}&`;
             if (debouncedSearch) url += `keyword=${encodeURIComponent(debouncedSearch)}&`;
             if (priceRange.min > 0) url += `minPrice=${priceRange.min}&`;
             if (priceRange.max < 25000) url += `maxPrice=${priceRange.max}&`;
