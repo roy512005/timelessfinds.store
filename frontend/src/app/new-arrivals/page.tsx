@@ -45,13 +45,26 @@ export default function NewArrivalsPage() {
                 grouped[cat].push(p);
             });
             const mixed: any[] = [];
-            const keys = Object.keys(grouped);
+            const priority = ['Lehenga Choli', 'Kurtis', 'Dresses', 'Suit Sets', 'Co-ord Sets'];
+            
+            // Pass 1: Prioritize Top categories first
+            priority.forEach(key => {
+                if (grouped[key] && grouped[key].length > 0 && mixed.length < items.length) {
+                    mixed.push(grouped[key].shift());
+                }
+            });
+
+            const keys = Object.keys(grouped).filter(k => grouped[k].length > 0);
             let i = 0;
             while (mixed.length < items.length && keys.length > 0) {
                 const key = keys[i % keys.length];
-                if (grouped[key].length > 0) mixed.push(grouped[key].shift());
-                else keys.splice(i % keys.length, 1);
-                if (grouped[key]?.length > 0) i++;
+                if (grouped[key].length > 0) {
+                    mixed.push(grouped[key].shift());
+                } else {
+                    keys.splice(i % keys.length, 1);
+                    continue;
+                }
+                i++;
             }
             let arr = mixed.length > 0 ? mixed : items;
 
