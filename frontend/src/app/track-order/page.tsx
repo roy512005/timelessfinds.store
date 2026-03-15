@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMutation } from '@tanstack/react-query';
@@ -9,7 +9,7 @@ import { useAuthStore } from '@/store/authStore';
 import { Package, Search, Truck, CheckCircle2, Copy, X } from 'lucide-react';
 import { toast } from 'sonner';
 
-export default function TrackOrderPage() {
+function TrackOrderContent() {
     const { user } = useAuthStore();
     const searchParams = useSearchParams();
     const [orderId, setOrderId] = useState(searchParams.get('orderId') || '');
@@ -313,5 +313,13 @@ export default function TrackOrderPage() {
                 </AnimatePresence>
             </div>
         </div>
+    );
+}
+
+export default function TrackOrderPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen pt-24 pb-16 text-center text-gray-500">Loading order tracker...</div>}>
+            <TrackOrderContent />
+        </Suspense>
     );
 }
