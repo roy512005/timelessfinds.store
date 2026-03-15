@@ -59,63 +59,29 @@ export default function Home() {
     staleTime: 5 * 60 * 1000,
   });
 
-  // Priority ordering: non-saree categories first, saree last
-  const blendByCategory = (items: any[], limit: number, startOffset = 0) => {
-    if (!items || items.length === 0) return [];
-
-    const SAREE_KEYWORDS = ['saree', 'sari', 'shari'];
-    const TOP_KEYWORDS = ['lehenga', 'kurti', 'kurta', 'dress', 'suit', 'co-ord', 'coord', 'anarkali'];
-
-    const isSaree = (cat: string) => SAREE_KEYWORDS.some(k => (cat || '').toLowerCase().includes(k));
-    const isTop = (cat: string) => TOP_KEYWORDS.some(k => (cat || '').toLowerCase().includes(k));
-
-    const grouped: Record<string, any[]> = {};
-    items.forEach((p: any) => {
-      const cat = p.category || 'other';
-      if (!grouped[cat]) grouped[cat] = [];
-      grouped[cat].push(p);
-    });
-
-    // Sort cats: top priority first, then others, saree last
-    const sortedCats = Object.keys(grouped).sort((a, b) => {
-      const aTop = isTop(a) ? 0 : isSaree(a) ? 2 : 1;
-      const bTop = isTop(b) ? 0 : isSaree(b) ? 2 : 1;
-      return aTop - bTop;
-    });
-
-    // Apply startOffset (for New Arrivals to show different products)
-    if (startOffset > 0) {
-      sortedCats.forEach(cat => {
-        grouped[cat] = grouped[cat].slice(startOffset);
-      });
-    }
-
-    const mixed: any[] = [];
-    // Pass 1: one from each category in priority order
-    sortedCats.forEach(key => {
-      if (grouped[key]?.length > 0 && mixed.length < limit) mixed.push(grouped[key].shift());
-    });
-    // Pass 2: round-robin fill remainder
-    const activeKeys = sortedCats.filter(k => grouped[k]?.length > 0);
-    let i = 0;
-    while (mixed.length < limit && activeKeys.length > 0) {
-      const key = activeKeys[i % activeKeys.length];
-      if (grouped[key]?.length > 0) {
-        mixed.push(grouped[key].shift());
-        i++;
-      } else {
-        activeKeys.splice(activeKeys.indexOf(key), 1);
-      }
-    }
-    return mixed;
-  };
-
   const { data: trendingProducts = [] } = useQuery({
     queryKey: ['trending-home'],
     queryFn: async () => {
-      const res = await api.get('/products?limit=120');
-      const items = (res.data || []) as any[];
-      return blendByCategory(items, 10, 0);
+      // Group multiple categories in a single request for speed
+      // Fetch all for speed, no category limits
+      const res = await api.get('/products?gender=Women&limit=25');
+      const items = res.data || [];
+      const grouped: Record<string, any[]> = {};
+      items.forEach((p: any) => {
+        const cat = p.category || 'other';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(p);
+      });
+      const mixed: any[] = [];
+      const keys = Object.keys(grouped);
+      let i = 0;
+      while (mixed.length < 10 && keys.length > 0) {
+        const key = keys[i % keys.length];
+        if (grouped[key].length > 0) mixed.push(grouped[key].shift());
+        else keys.splice(i % keys.length, 1);
+        if (grouped[key]?.length > 0) i++;
+      }
+      return mixed.length > 0 ? mixed : items.slice(0, 10);
     },
     staleTime: 5 * 60 * 1000,
   });
@@ -123,9 +89,26 @@ export default function Home() {
   const { data: newArrivalsProducts = [] } = useQuery({
     queryKey: ['new-arrivals-home'],
     queryFn: async () => {
-      const res = await api.get('/products?sort=new&limit=120');
-      const items = (res.data || []) as any[];
-      return blendByCategory(items, 12, 3); // offset=3 → different products from Trending
+      // Group multiple categories in a single request for speed
+      // Fetch all for speed, no category limits
+      const res = await api.get('/products?gender=Women&sort=new&limit=25');
+      const items = res.data || [];
+      const grouped: Record<string, any[]> = {};
+      items.forEach((p: any) => {
+        const cat = p.category || 'other';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(p);
+      });
+      const mixed: any[] = [];
+      const keys = Object.keys(grouped);
+      let i = 0;
+      while (mixed.length < 12 && keys.length > 0) {
+        const key = keys[i % keys.length];
+        if (grouped[key].length > 0) mixed.push(grouped[key].shift());
+        else keys.splice(i % keys.length, 1);
+        if (grouped[key]?.length > 0) i++;
+      }
+      return mixed.length > 0 ? mixed : items.slice(0, 12);
     },
     staleTime: 5 * 60 * 1000,
   });

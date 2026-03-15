@@ -35,7 +35,7 @@ export default function NewArrivalsPage() {
     const { data: dbData, isLoading } = useQuery({
         queryKey: ['new-arrivals', sort, selectedSizes, selectedColors],
         queryFn: async () => {
-            const { data } = await api.get('/products', { params: { sort, limit: 120 } });
+            const { data } = await api.get('/products', { params: { sort } });
             const items = (data.products || data || []) as Product[];
 
             const grouped: Record<string, any[]> = {};
@@ -45,26 +45,13 @@ export default function NewArrivalsPage() {
                 grouped[cat].push(p);
             });
             const mixed: any[] = [];
-            const priority = ['Lehenga Choli', 'Kurtis', 'Dresses', 'Suit Sets', 'Co-ord Sets'];
-            
-            // Pass 1: Prioritize Top categories first
-            priority.forEach(key => {
-                if (grouped[key] && grouped[key].length > 0 && mixed.length < items.length) {
-                    mixed.push(grouped[key].shift());
-                }
-            });
-
-            const keys = Object.keys(grouped).filter(k => grouped[k].length > 0);
+            const keys = Object.keys(grouped);
             let i = 0;
             while (mixed.length < items.length && keys.length > 0) {
                 const key = keys[i % keys.length];
-                if (grouped[key].length > 0) {
-                    mixed.push(grouped[key].shift());
-                } else {
-                    keys.splice(i % keys.length, 1);
-                    continue;
-                }
-                i++;
+                if (grouped[key].length > 0) mixed.push(grouped[key].shift());
+                else keys.splice(i % keys.length, 1);
+                if (grouped[key]?.length > 0) i++;
             }
             let arr = mixed.length > 0 ? mixed : items;
 
