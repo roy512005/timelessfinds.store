@@ -103,7 +103,8 @@ function DressesContent() {
         const queryStr = params.toString();
         router.push(queryStr ? `?${queryStr}` : '/dresses', { scroll: false });
         
-        // Reset page triggers
+        // Reset page and clear accumulated items immediately
+        setAllItems([]);
         setPage(1);
     }, [activeCategory, activeGender, activeBadge, activeTag, selectedSizes, selectedColors, priceRange.max, sort]);
 
@@ -144,12 +145,17 @@ function DressesContent() {
             url += `page=${page}&limit=12`;
             
             const { data } = await api.get(url);
-            const fetched = data.products || data || [];
+            const fetched: Product[] = data.products || data || [];
             
             if (page === 1) {
                 setAllItems(fetched);
             } else {
-                setAllItems(prev => [...prev, ...fetched]);
+                setAllItems(prev => {
+                    // Dedup by _id to prevent any duplicates
+                    const existingIds = new Set(prev.map(p => (p as any)._id || p.id));
+                    const newItems = fetched.filter(p => !existingIds.has((p as any)._id || p.id));
+                    return [...prev, ...newItems];
+                });
             }
             setHasMore(fetched.length === 12);
             return fetched;

@@ -86,41 +86,57 @@ export const getTrendingProducts = async (req, res) => {
             { $unwind: '$orderItems' },
             { $group: { _id: '$orderItems.product', totalQty: { $sum: '$orderItems.qty' } } },
             { $sort: { totalQty: -1 } },
-            { $limit: limit * 2 }, // fetch extra to allow category blending
+            { $limit: limit * 3 },
         ]);
 
-        let products = [];
+        let orderBasedProducts = [];
         if (topProductIds.length > 0) {
-            const ids = topProductIds.map(t => t._id);
+            const ids = topProductIds.map(t => t._id).filter(Boolean);
             const docs = await Product.find({ _id: { $in: ids } });
-            // Preserve order-rank order
             const docMap = Object.fromEntries(docs.map(d => [d._id.toString(), d]));
-            products = topProductIds.map(t => docMap[t._id?.toString()]).filter(Boolean);
+            orderBasedProducts = topProductIds.map(t => docMap[t._id?.toString()]).filter(Boolean);
         }
 
-        // Fallback: if no orders yet, use rating-based top products
-        if (products.length < 4) {
-            products = await Product.find().sort({ rating: -1, numReviews: -1 }).limit(limit);
+        // Always fetch products from the 4 key categories to guarantee variety
+        const TRENDING_CATS = ['Kurtis', 'Kurta Sets', 'Saree', 'Dresses', 'Lehenga Choli', 'Co-ord Sets'];
+        const catProducts = await Product.find({
+            category: { $in: TRENDING_CATS },
+        }).sort({ rating: -1 }).limit(limit * 3);
+
+        // Merge: order-based first, then fill with category products (dedup by _id)
+        const seen = new Set();
+        const merged = [];
+        for (const p of [...orderBasedProducts, ...catProducts]) {
+            const id = (p._id || p.id)?.toString();
+            if (id && !seen.has(id)) {
+                seen.add(id);
+                merged.push(p);
+            }
         }
 
-        // Blend by category for variety (round-robin)
+        // Round-robin blend by category — fixed loop (always advance i)
         const grouped = {};
-        products.forEach(p => {
+        merged.forEach(p => {
             const cat = p.category || 'other';
             if (!grouped[cat]) grouped[cat] = [];
             grouped[cat].push(p);
         });
-        const mixed = [];
         const keys = Object.keys(grouped);
+        const mixed = [];
         let i = 0;
         while (mixed.length < limit && keys.length > 0) {
-            const key = keys[i % keys.length];
-            if (grouped[key].length > 0) mixed.push(grouped[key].shift());
-            else keys.splice(i % keys.length, 1);
-            if (grouped[key]?.length > 0) i++;
+            const idx = i % keys.length;
+            const key = keys[idx];
+            if (grouped[key] && grouped[key].length > 0) {
+                mixed.push(grouped[key].shift());
+                i++;
+            } else {
+                keys.splice(idx, 1);
+                // don't increment i — re-check same position with shorter keys
+            }
         }
 
-        res.json(mixed.length > 0 ? mixed : products.slice(0, limit));
+        res.json(mixed.length > 0 ? mixed : merged.slice(0, limit));
     } catch (error) {
         console.error('getTrendingProducts error:', error.message);
         res.status(500).json({ message: error.message });
