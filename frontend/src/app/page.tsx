@@ -59,22 +59,16 @@ export default function Home() {
     staleTime: 5 * 60 * 1000,
   });
 
-  // Priority category keywords (case-insensitive partial match)
-  const PRIORITY_KEYWORDS = ['lehenga', 'kurti', 'kurta', 'dress', 'suit', 'co-ord', 'coord', 'anarkali', 'salwar'];
-  const EXCLUDE_KEYWORDS = ['saree', 'sari', 'shari'];
-
-  // Helper: blend items prioritizing dress categories, excluding saree
-  const blendByCategory = (items: any[], limit: number, skip = 0) => {
+  // Priority ordering: non-saree categories first, saree last
+  const blendByCategory = (items: any[], limit: number, startOffset = 0) => {
     if (!items || items.length === 0) return [];
 
-    const getPriority = (cat: string) => {
-      const c = (cat || '').toLowerCase();
-      if (EXCLUDE_KEYWORDS.some(k => c.includes(k))) return 99; // push saree to end
-      const idx = PRIORITY_KEYWORDS.findIndex(k => c.includes(k));
-      return idx === -1 ? 50 : idx; // lower = higher priority
-    };
+    const SAREE_KEYWORDS = ['saree', 'sari', 'shari'];
+    const TOP_KEYWORDS = ['lehenga', 'kurti', 'kurta', 'dress', 'suit', 'co-ord', 'coord', 'anarkali'];
 
-    // Group by category
+    const isSaree = (cat: string) => SAREE_KEYWORDS.some(k => (cat || '').toLowerCase().includes(k));
+    const isTop = (cat: string) => TOP_KEYWORDS.some(k => (cat || '').toLowerCase().includes(k));
+
     const grouped: Record<string, any[]> = {};
     items.forEach((p: any) => {
       const cat = p.category || 'other';
@@ -82,60 +76,44 @@ export default function Home() {
       grouped[cat].push(p);
     });
 
-    // Sort category keys by priority
-    const sortedCats = Object.keys(grouped).sort((a, b) => getPriority(a) - getPriority(b));
+    // Sort cats: top priority first, then others, saree last
+    const sortedCats = Object.keys(grouped).sort((a, b) => {
+      const aTop = isTop(a) ? 0 : isSaree(a) ? 2 : 1;
+      const bTop = isTop(b) ? 0 : isSaree(b) ? 2 : 1;
+      return aTop - bTop;
+    });
 
-    // Separate priority cats from rest (saree etc.)
-    const priorityCats = sortedCats.filter(c => getPriority(c) < 90);
-    const otherCats = sortedCats.filter(c => getPriority(c) >= 90);
-
-    // Skip first N items per category for New Arrivals differentiation
-    if (skip > 0) {
-      sortedCats.forEach(cat => { grouped[cat] = grouped[cat].slice(skip); });
+    // Apply startOffset (for New Arrivals to show different products)
+    if (startOffset > 0) {
+      sortedCats.forEach(cat => {
+        grouped[cat] = grouped[cat].slice(startOffset);
+      });
     }
 
     const mixed: any[] = [];
-
-    // Pass 1: one item from each priority category in order
-    priorityCats.forEach(key => {
+    // Pass 1: one from each category in priority order
+    sortedCats.forEach(key => {
       if (grouped[key]?.length > 0 && mixed.length < limit) mixed.push(grouped[key].shift());
     });
-
-    // Pass 2: round-robin from priority cats
-    const keys = [...priorityCats].filter(k => grouped[k]?.length > 0);
+    // Pass 2: round-robin fill remainder
+    const activeKeys = sortedCats.filter(k => grouped[k]?.length > 0);
     let i = 0;
-    while (mixed.length < limit && keys.length > 0) {
-      const key = keys[i % keys.length];
+    while (mixed.length < limit && activeKeys.length > 0) {
+      const key = activeKeys[i % activeKeys.length];
       if (grouped[key]?.length > 0) {
         mixed.push(grouped[key].shift());
         i++;
       } else {
-        keys.splice(keys.indexOf(key), 1);
+        activeKeys.splice(activeKeys.indexOf(key), 1);
       }
     }
-
-    // Pass 3: fallback — if nothing matched, use all items (saree etc.) so section always shows
-    if (mixed.length === 0) {
-      const allKeys = [...otherCats, ...priorityCats].filter(k => grouped[k]?.length > 0);
-      let j = 0;
-      while (mixed.length < limit && allKeys.length > 0) {
-        const key = allKeys[j % allKeys.length];
-        if (grouped[key]?.length > 0) {
-          mixed.push(grouped[key].shift());
-          j++;
-        } else {
-          allKeys.splice(j % allKeys.length, 1);
-        }
-      }
-    }
-
     return mixed;
   };
 
   const { data: trendingProducts = [] } = useQuery({
     queryKey: ['trending-home'],
     queryFn: async () => {
-      const res = await api.get('/products?gender=Women&limit=120');
+      const res = await api.get('/products?limit=120');
       const items = (res.data || []) as any[];
       return blendByCategory(items, 10, 0);
     },
@@ -145,10 +123,9 @@ export default function Home() {
   const { data: newArrivalsProducts = [] } = useQuery({
     queryKey: ['new-arrivals-home'],
     queryFn: async () => {
-      // Sort by newest, skip first 2 per category so results differ from Trending
-      const res = await api.get('/products?gender=Women&sort=new&limit=120');
+      const res = await api.get('/products?sort=new&limit=120');
       const items = (res.data || []) as any[];
-      return blendByCategory(items, 12, 2); // skip=2 ensures different products than Trending
+      return blendByCategory(items, 12, 3); // offset=3 → different products from Trending
     },
     staleTime: 5 * 60 * 1000,
   });
