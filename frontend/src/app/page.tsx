@@ -273,7 +273,7 @@ export default function Home() {
       </section>
 
       {/* ── 2. Ticker ─────────────────────────────────── */}
-      <div className="bg-black text-white/60 py-3 overflow-hidden border-b border-white/10">
+      <div className="bg-black text-white/60 py-1.5 overflow-hidden border-b border-white/10">
         <div className="flex whitespace-nowrap animate-[ticker_30s_linear_infinite]">
           {[...Array(4)].map((_, i) => (
             <span key={i} className="flex items-center shrink-0 text-[11px] font-semibold uppercase tracking-[0.2em] pr-16">

@@ -73,3 +73,14 @@
     }
   }
 }
+
+/* Zero out physical sizes for Toaster accessible nodes that can create blank spaces */
+section[aria-label*="Notifications"] {
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  display: list-item !important; /* Forces it to not display: block if wrapping spaces inside grids */
+  opacity: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
