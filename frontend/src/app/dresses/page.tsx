@@ -8,6 +8,8 @@ import { ProductCard, ProductCardSkeleton, type Product } from '@/components/ui/
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 function DressesContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -19,6 +21,10 @@ function DressesContent() {
     const [activeCategory, setActiveCategory] = useState('All');
     const [activeGender, setActiveGender] = useState<string | null>(null);
     const [activeBadge, setActiveBadge] = useState<string | null>(null);
+
+    const [page, setPage] = useState(1);
+    const [allItems, setAllItems] = useState<Product[]>([]);
+    const [hasMore, setHasMore] = useState(true);
 
     const { data: rawCategories } = useQuery({
         queryKey: ['categories'],
@@ -91,6 +97,9 @@ function DressesContent() {
 
         const queryStr = params.toString();
         router.push(queryStr ? `?${queryStr}` : '/dresses', { scroll: false });
+        
+        // Reset page triggers
+        setPage(1);
     }, [activeCategory, activeGender, activeBadge, selectedSizes, selectedColors, priceRange.max, sort, activeCategory, activeGender, activeBadge]);
 
     const SORT_OPTIONS = [
@@ -115,7 +124,7 @@ function DressesContent() {
     const categoryTabs = ['All', ...(rawCategories || []).map((c) => c.name)];
 
     const { data: dbData, isLoading } = useQuery({
-        queryKey: ['products', activeCategory, activeGender, activeBadge, selectedSizes, selectedColors, debouncedSearch, priceRange],
+        queryKey: ['products', activeCategory, activeGender, activeBadge, selectedSizes, selectedColors, debouncedSearch, priceRange, page],
         queryFn: async () => {
             let url = '/products?';
             if (activeCategory !== 'All') url += `category=${encodeURIComponent(activeCategory)}&`;
@@ -126,13 +135,22 @@ function DressesContent() {
             if (priceRange.max < 25000) url += `maxPrice=${priceRange.max}&`;
             if (selectedSizes.length > 0) url += `size=${selectedSizes.join(',')}&`;
             if (selectedColors.length > 0) url += `color=${selectedColors.join(',')}&`;
+            url += `page=${page}&limit=12`;
             
             const { data } = await api.get(url);
-            return (data.products || data || []) as Product[];
+            const fetched = data.products || data || [];
+            
+            if (page === 1) {
+                setAllItems(fetched);
+            } else {
+                setAllItems(prev => [...prev, ...fetched]);
+            }
+            setHasMore(fetched.length === 12);
+            return fetched;
         },
     });
 
-    const base: Product[] = dbData || [];
+    const base: Product[] = allItems;
     let filtered = base;
 
     // Sort
@@ -326,7 +344,7 @@ function DressesContent() {
 
                     {/* ── Grid ──────────────────────────────────── */}
                     <div className="flex-1">
-                        {isLoading ? (
+                        {isLoading && page === 1 ? (
                             <div className={`grid grid-cols-2 gap-x-5 gap-y-12 ${filterOpen ? 'md:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}>
                                 {[...Array(8)].map((_, i) => (
                                     <ProductCardSkeleton key={i} />
@@ -339,11 +357,18 @@ function DressesContent() {
                                 <p className="text-sm mt-1">Try relaxing your filters or search.</p>
                             </div>
                         ) : (
-                            <div className={`grid grid-cols-2 gap-x-5 gap-y-12 ${filterOpen ? 'md:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}>
-                                {filtered.map((p) => (
-                                    <ProductCard key={p.id || p._id} p={p} />
-                                ))}
-                            </div>
+                            <InfiniteScroll
+                                dataLength={filtered.length}
+                                next={() => setPage(p => p + 1)}
+                                hasMore={hasMore}
+                                loader={<p className="text-center py-6 text-xs font-bold uppercase tracking-widest text-gray-400">Loading more amazing finds...</p>}
+                            >
+                                <div className={`grid grid-cols-2 gap-x-5 gap-y-12 ${filterOpen ? 'md:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}>
+                                    {filtered.map((p) => (
+                                        <ProductCard key={p.id || p._id} p={p} />
+                                    ))}
+                                </div>
+                            </InfiniteScroll>
                         )}
                     </div>
                 </div>

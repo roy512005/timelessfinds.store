@@ -45,14 +45,18 @@ export const getProducts = async (req, res) => {
         let sortObj = { createdAt: -1 };
         if (req.query.sort === 'new') sortObj = { createdAt: -1 };
 
-        const limit = req.query.limit ? parseInt(req.query.limit) : 0;
+        const page = req.query.page ? parseInt(req.query.page) : 1;
+        const limit = req.query.limit ? parseInt(req.query.limit) : 20;
+        const skip = (page - 1) * limit;
 
-        let query = Product.find({ ...keyword, ...category, ...size, ...color, ...tag, ...collection, ...gender, ...badge, ...priceFilter })
-            .sort(sortObj);
-        if (limit > 0) query = query.limit(limit);
+        const countQuery = { ...keyword, ...category, ...size, ...color, ...tag, ...collection, ...gender, ...badge, ...priceFilter };
+        const totalCount = await Product.countDocuments(countQuery);
+
+        let query = Product.find(countQuery).sort(sortObj);
+        if (limit > 0) query = query.skip(skip).limit(limit);
 
         const products = await query;
-        res.json(products);
+        res.json({ products, page, pages: limit > 0 ? Math.ceil(totalCount / limit) : 1, total: totalCount });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
