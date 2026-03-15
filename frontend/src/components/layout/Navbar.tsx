@@ -81,7 +81,7 @@ export const Navbar = () => {
                         <img
                             src="/logo.png"
                             alt="Timeless Finds"
-                            className="h-12 w-auto object-contain"
+                            className="h-9 sm:h-12 w-auto object-contain"
                         />
                     </Link>
 

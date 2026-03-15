@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useAuthStore } from '@/store/authStore';
 import { useCartStore } from '@/store/cartStore';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -11,7 +11,7 @@ import { auth } from '@/lib/firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult } from 'firebase/auth';
 import api from '@/lib/axios';
 
-export default function LoginPage() {
+function LoginContent() {
     const [step, setStep] = useState<1 | 2 | 3>(1);
     const [phone, setPhone] = useState('');
     const [otp, setOtp] = useState('');
@@ -24,6 +24,8 @@ export default function LoginPage() {
     const login = useAuthStore((state) => state.login);
     const updateUser = useAuthStore((state) => state.updateUser);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/';
 
     useEffect(() => {
         // 1️⃣ Initialize reCAPTCHA Before Sending OTP
@@ -130,7 +132,7 @@ export default function LoginPage() {
             if (userData.name.startsWith('User_')) {
                 setStep(3);
             } else {
-                router.push('/');
+                router.push(redirectTo);
             }
         } catch (error: any) {
             console.error(error);
@@ -154,7 +156,7 @@ export default function LoginPage() {
             updateUser({ name: res.data.name, email: res.data.email });
 
             toast.success('Profile created successfully!');
-            router.push('/');
+            router.push(redirectTo);
         } catch (error) {
             toast.error('Failed to update profile details');
         } finally {
@@ -344,5 +346,13 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-gray-400">Loading...</div>}>
+            <LoginContent />
+        </Suspense>
     );
 }

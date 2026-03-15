@@ -222,7 +222,7 @@ export default function CartPage() {
                             </div>
                         </div>
 
-                        <Link href="/checkout">
+                        <Link href={user ? '/checkout' : '/login?redirect=/checkout'}>
                             <Button size="lg" className="w-full text-lg h-14 bg-black hover:bg-gray-800 shadow-[0_10px_20px_rgba(0,0,0,0.1)] transition-transform hover:-translate-y-1">
                                 Checkout Securely ➔
                             </Button>
