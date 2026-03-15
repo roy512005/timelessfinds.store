@@ -146,14 +146,8 @@ export default function AdminProductsPage() {
                     </div>
 
                     <div>
-                        <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Product Badge / Tag</label>
-                        <select className="w-full border px-3 py-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-black bg-white" value={form.badge} onChange={e => setForm(p => ({ ...p, badge: e.target.value }))}>
-                            <option value="">None</option>
-                            <option value="Best Seller">Best Seller</option>
-                            <option value="Trending">Trending</option>
-                            <option value="New Arrival">New Arrival</option>
-                            <option value="Exclusive">Exclusive</option>
-                        </select>
+                        <label className="block text-xs font-bold text-gray-600 mb-1 uppercase tracking-wider">Product Badge / Label (e.g. Best Seller)</label>
+                        <input className="w-full border px-3 py-2 rounded text-sm focus:outline-none focus:ring-1 focus:ring-black" value={form.badge} onChange={e => setForm(p => ({ ...p, badge: e.target.value }))} placeholder="Best Seller, Trending, Exclusive..." />
                     </div>
 
                     <div>
