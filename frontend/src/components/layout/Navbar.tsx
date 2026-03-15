@@ -17,6 +17,7 @@ export const Navbar = () => {
     const [searchOpen, setSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [expandedMobileTab, setExpandedMobileTab] = useState<string | null>(null);
     const router = useRouter();
 
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -64,7 +65,7 @@ export const Navbar = () => {
     return (
         <div className="sticky top-0 z-50">
             {/* ── Announcement Bar ─────────────────────── */}
-            <div className="bg-black text-white text-center py-1 text-[9px] font-bold tracking-[0.15em] uppercase">
+            <div className="bg-black text-white text-center py-1 text-[9px] md:text-[11px] font-bold tracking-[0.15em] uppercase">
                 {settings?.topBannerText || 'Free Shipping Over ₹999 | Easy Returns & Exchanges'}
             </div>
 
@@ -314,25 +315,74 @@ export const Navbar = () => {
                             transition={{ duration: 0.2 }}
                             className="md:hidden overflow-hidden bg-white border-t border-gray-100"
                         >
-                            <div className="px-6 py-4 flex flex-col gap-4">
-                                {[
-                                    ['New Arrivals', '/new-arrivals'],
-                                    ['Women', '/dresses?gender=women'],
-                                    ['Men', '/dresses?gender=men'],
-                                    ['Collections', '/collections'],
-                                    ['Wishlist', '/wishlist'],
-                                    ['Sale', '/sale'],
-                                ].map(([label, href]) => (
-                                    <Link
-                                        key={label}
-                                        href={href}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={`text-xs font-bold uppercase tracking-widest ${label === 'Sale' ? 'text-rose-600' : 'text-gray-800'
-                                            }`}
+                            <div className="px-6 py-5 flex flex-col gap-5">
+                                <Link href="/new-arrivals" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold uppercase tracking-widest text-gray-800 hover:text-rose-600 transition-colors">
+                                    New Arrivals
+                                </Link>
+
+                                {/* 👚 Women Category */}
+                                <div>
+                                    <button 
+                                        onClick={() => setExpandedMobileTab(expandedMobileTab === 'women' ? null : 'women')} 
+                                        className="flex items-center justify-between w-full text-xs font-bold uppercase tracking-widest text-gray-800"
                                     >
-                                        {label}
-                                    </Link>
-                                ))}
+                                        <span>Women</span>
+                                        <ChevronDown size={14} className={`transition-transform duration-200 ${expandedMobileTab === 'women' ? 'rotate-180 text-rose-600' : 'text-gray-400'}`} />
+                                    </button>
+                                    <AnimatePresence>
+                                        {expandedMobileTab === 'women' && (
+                                            <motion.div 
+                                                initial={{ height: 0, opacity: 0 }} 
+                                                animate={{ height: 'auto', opacity: 1 }} 
+                                                exit={{ height: 0, opacity: 0 }} 
+                                                className="overflow-hidden flex flex-col pl-3 mt-2.5 gap-2.5 border-l border-gray-100"
+                                            >
+                                                {navCategories.Women.map(([l, h]) => (
+                                                    <Link key={l} href={h} onClick={() => setMobileMenuOpen(false)} className="text-[10px] font-bold text-gray-500 hover:text-rose-600 uppercase tracking-wider">
+                                                        {l}
+                                                    </Link>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* 👕 Men Category */}
+                                <div>
+                                    <button 
+                                        onClick={() => setExpandedMobileTab(expandedMobileTab === 'men' ? null : 'men')} 
+                                        className="flex items-center justify-between w-full text-xs font-bold uppercase tracking-widest text-gray-800"
+                                    >
+                                        <span>Men</span>
+                                        <ChevronDown size={14} className={`transition-transform duration-200 ${expandedMobileTab === 'men' ? 'rotate-180 text-rose-600' : 'text-gray-400'}`} />
+                                    </button>
+                                    <AnimatePresence>
+                                        {expandedMobileTab === 'men' && (
+                                            <motion.div 
+                                                initial={{ height: 0, opacity: 0 }} 
+                                                animate={{ height: 'auto', opacity: 1 }} 
+                                                exit={{ height: 0, opacity: 0 }} 
+                                                className="overflow-hidden flex flex-col pl-3 mt-2.5 gap-2.5 border-l border-gray-100"
+                                            >
+                                                {navCategories.Men.map(([l, h]) => (
+                                                    <Link key={l} href={h} onClick={() => setMobileMenuOpen(false)} className="text-[10px] font-bold text-gray-500 hover:text-rose-600 uppercase tracking-wider">
+                                                        {l}
+                                                    </Link>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                <Link href="/collections" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold uppercase tracking-widest text-gray-800 hover:text-rose-600 transition-colors">
+                                    Collections
+                                </Link>
+                                <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold uppercase tracking-widest text-gray-800 hover:text-rose-600 transition-colors">
+                                    Wishlist
+                                </Link>
+                                <Link href="/sale" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold uppercase tracking-widest text-rose-600 hover:text-rose-800 transition-colors">
+                                    Sale
+                                </Link>
                             </div>
                         </motion.div>
                     )}
