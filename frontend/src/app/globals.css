@@ -52,3 +52,24 @@
     top: 140%;
   }
 }
+
+@layer components {
+  @media (max-width: 640px) {
+    section {
+      padding-top: 2.5rem !important;
+      padding-bottom: 2.5rem !important;
+    }
+    section h2 {
+      font-size: 1.5rem !important; /* 24px instead of 36px */
+    }
+    section p.text-xs {
+      margin-bottom: 0.5rem !important;
+    }
+    section .grid {
+      gap-y: 1.5rem !important; /* tighter card row spacing */
+    }
+    aside {
+      margin-bottom: 1rem;
+    }
+  }
+}

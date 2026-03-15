@@ -75,17 +75,43 @@ export const Navbar = () => {
                     : 'bg-white border-b border-gray-100'
                     }`}
             >
-                <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-1.5 shrink-0">
-                        <img
-                            src="/logo.png"
-                            alt="Timeless Finds"
-                            className="h-9 sm:h-12 w-auto object-contain"
-                        />
-                    </Link>
+                <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 relative">
+                    {/* 📱 Mobile Left Icons (Menu + Search) */}
+                    <div className="flex md:hidden items-center gap-0.5">
+                        <button
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="p-2 text-gray-700"
+                            aria-label="Menu"
+                        >
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                        <button
+                            onClick={() => setSearchOpen((o) => !o)}
+                            className="p-2 text-gray-700"
+                            aria-label="Search"
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                        </button>
+                    </div>
 
-                    {/* Desktop Navigation */}
+                    {/* 🏷️ Logo (Centered on Mobile, Left on Desktop) */}
+                    <div className="md:static absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 z-10 flex items-center">
+                        <Link href="/" className="flex items-center gap-1.5 shrink-0">
+                            <img
+                                src="/logo.png"
+                                alt="Timeless Finds"
+                                className="h-9 sm:h-12 w-auto object-contain"
+                            />
+                        </Link>
+                    </div>
+
+                    {/* 🖥️ Desktop Navigation (Center/Left) */}
                     <nav className="hidden md:flex items-center gap-8 h-full" aria-label="Main navigation">
                         <Link
                             href="/new-arrivals"
@@ -168,9 +194,8 @@ export const Navbar = () => {
                         </Link>
                     </nav>
 
-                    {/* Icons */}
-                    <div className="flex items-center gap-1">
-                        {/* Search */}
+                    {/* 🖥️ Desktop Icons */}
+                    <div className="hidden md:flex items-center gap-1">
                         <button
                             id="nav-search"
                             onClick={() => setSearchOpen((o) => !o)}
@@ -182,7 +207,6 @@ export const Navbar = () => {
                             </svg>
                         </button>
 
-                        {/* Wishlist */}
                         <Link href="/wishlist" id="nav-wishlist" className="p-2.5 text-gray-700 hover:text-rose-600 transition-colors relative" aria-label="Wishlist">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -194,7 +218,6 @@ export const Navbar = () => {
                             )}
                         </Link>
 
-                        {/* Cart */}
                         <Link href="/cart" id="nav-cart" className="p-2.5 text-gray-700 hover:text-black transition-colors relative" aria-label="Cart">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -215,25 +238,32 @@ export const Navbar = () => {
                             </AnimatePresence>
                         </Link>
 
-                        {/* Profile */}
                         <Link href="/account" id="nav-profile" className="p-2.5 text-gray-700 hover:text-black transition-colors" aria-label="Account">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
                             </svg>
                         </Link>
+                    </div>
 
-                        {/* Mobile hamburger */}
-                        <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden p-2.5 text-gray-700"
-                            aria-label="Menu"
-                        >
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    {/* 📱 Mobile Right Icons (Cart + Account) */}
+                    <div className="flex md:hidden items-center gap-0.5 ml-auto z-10">
+                        <Link href="/cart" className="p-2 text-gray-700 relative" aria-label="Cart">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                                 <line x1="3" y1="6" x2="21" y2="6" />
-                                <line x1="3" y1="12" x2="21" y2="12" />
-                                <line x1="3" y1="18" x2="21" y2="18" />
+                                <path d="M16 10a4 4 0 0 1-8 0" />
                             </svg>
-                        </button>
+                            {cartCount > 0 && (
+                                <span className="absolute top-1 right-1 w-4 h-4 bg-black text-white text-[8px] font-bold rounded-full flex items-center justify-center">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </Link>
+                        <Link href="/account" className="p-2 text-gray-700" aria-label="Account">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </Link>
                     </div>
                 </div>
 

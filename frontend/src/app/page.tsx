@@ -126,23 +126,27 @@ export default function Home() {
 
   const { data: creators = [] } = useQuery({
     queryKey: ['creator'],
-    queryFn: async () => (await api.get('/home/creator')).data
+    queryFn: async () => (await api.get('/home/creator')).data,
+    staleTime: 5 * 60 * 1000,
   });
   const creator = creators?.[0] || null;
 
   const { data: reviews = [] } = useQuery({
     queryKey: ['featured-reviews'],
-    queryFn: async () => (await api.get('/reviews/featured')).data
+    queryFn: async () => (await api.get('/reviews/featured')).data,
+    staleTime: 5 * 60 * 1000,
   });
 
   const { data: instagram = [] } = useQuery({
     queryKey: ['instagram'],
-    queryFn: async () => (await api.get('/social/instagram')).data
+    queryFn: async () => (await api.get('/social/instagram')).data,
+    staleTime: 5 * 60 * 1000,
   });
 
   const { data: topBanners = [] } = useQuery({
     queryKey: ['top-banners'],
-    queryFn: async () => (await api.get('/home/top-banners')).data
+    queryFn: async () => (await api.get('/home/top-banners')).data,
+    staleTime: 5 * 60 * 1000,
   });
 
   const tickerItems = topBanners.length > 0

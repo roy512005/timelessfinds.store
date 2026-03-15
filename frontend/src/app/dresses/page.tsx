@@ -183,10 +183,10 @@ function DressesContent() {
                     </div>
                 </div>
 
-                <div className="flex gap-10">
+                <div className="flex flex-col md:flex-row gap-10">
                     {/* ── Filters Sidebar ───────────────────── */}
                     {filterOpen && (
-                        <aside className="hidden md:block w-52 shrink-0">
+                        <aside className="w-full md:w-52 shrink-0">
                             <div className="sticky top-28 space-y-8">
                                 {/* Size */}
                                 <div>
