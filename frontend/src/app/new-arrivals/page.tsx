@@ -36,12 +36,24 @@ export default function NewArrivalsPage() {
         queryKey: ['new-arrivals', sort, selectedSizes, selectedColors],
         queryFn: async () => {
             const { data } = await api.get('/products', { params: { sort } });
-            let arr: Product[] = data.products || data || [];
+            const items = (data.products || data || []) as Product[];
 
-            if (sort === 'price-asc') arr = arr.sort((a, b) => a.price - b.price);
-            else if (sort === 'price-desc') arr = arr.sort((a, b) => b.price - a.price);
-            else if (sort === 'popular') arr = arr.sort((a, b) => (b.reviews ?? 0) - (a.reviews ?? 0));
-            else if (sort === 'newest') arr = arr.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            const grouped: Record<string, any[]> = {};
+            items.forEach((p: any) => {
+                const cat = p.category || 'other';
+                if (!grouped[cat]) grouped[cat] = [];
+                grouped[cat].push(p);
+            });
+            const mixed: any[] = [];
+            const keys = Object.keys(grouped);
+            let i = 0;
+            while (mixed.length < items.length && keys.length > 0) {
+                const key = keys[i % keys.length];
+                if (grouped[key].length > 0) mixed.push(grouped[key].shift());
+                else keys.splice(i % keys.length, 1);
+                if (grouped[key]?.length > 0) i++;
+            }
+            let arr = mixed.length > 0 ? mixed : items;
 
             if (selectedSizes.length > 0) {
                 arr = arr.filter((p: any) => p.sizes?.some((s: any) => selectedSizes.includes(typeof s === 'string' ? s : s.size)));

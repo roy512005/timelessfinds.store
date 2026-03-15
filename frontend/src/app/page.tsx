@@ -63,7 +63,8 @@ export default function Home() {
     queryKey: ['trending-home'],
     queryFn: async () => {
       // Group multiple categories in a single request for speed
-      const res = await api.get('/products?category=Dresses|Suit Sets|Kurta Sets|Co-ord Sets&gender=Women&limit=25');
+      // Fetch all for speed, no category limits
+      const res = await api.get('/products?gender=Women&limit=25');
       const items = res.data || [];
       const grouped: Record<string, any[]> = {};
       items.forEach((p: any) => {
@@ -89,7 +90,8 @@ export default function Home() {
     queryKey: ['new-arrivals-home'],
     queryFn: async () => {
       // Group multiple categories in a single request for speed
-      const res = await api.get('/products?category=Dresses|Suit Sets|Kurta Sets|Co-ord Sets|Kurtis&gender=Women&sort=new&limit=25');
+      // Fetch all for speed, no category limits
+      const res = await api.get('/products?gender=Women&sort=new&limit=25');
       const items = res.data || [];
       const grouped: Record<string, any[]> = {};
       items.forEach((p: any) => {
