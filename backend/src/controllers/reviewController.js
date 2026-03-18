@@ -1,5 +1,11 @@
 import Review from '../models/Review.js';
 
+// Strips HTML tags to prevent Stored XSS attacks in reviews
+const sanitizeText = (str) => {
+    if (!str || typeof str !== 'string') return '';
+    return str.replace(/<[^>]*>/g, '').trim();
+};
+
 // @desc    Add review
 // @route   POST /api/reviews
 export const addReview = async (req, res) => {
@@ -15,7 +21,7 @@ export const addReview = async (req, res) => {
             product_id,
             user_id: req.user._id,
             rating: Number(rating),
-            comment,
+            comment: sanitizeText(comment),  // XSS prevention: strip any HTML before persisting
         });
 
         const createdReview = await review.save();

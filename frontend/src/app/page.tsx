@@ -16,7 +16,7 @@ import 'swiper/css/navigation';
 const REVIEWS = [
   { name: 'Priya S.', city: 'Mumbai', rating: 5, text: 'Absolutely stunning quality. The Midnight Silk Slip fits like it was made for me. Got so many compliments at the gala!', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80' },
   { name: 'Ananya K.', city: 'Delhi', rating: 5, text: 'Ordered the Rose Velvet Midi for a wedding — it was a literal showstopper. Luxury feel at an unbelievable price.', img: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80' },
-  { name: 'Simran T.', city: 'Bangalore', rating: 5, text: 'DressAura packaging is gorgeous too! Felt like I was unboxing a luxury brand. Will definitely be a repeat customer.', img: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=100&q=80' },
+  { name: 'Simran T.', city: 'Bangalore', rating: 5, text: 'Timeless Finds packaging is gorgeous too! Felt like I was unboxing a luxury brand. Will definitely be a repeat customer.', img: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=100&q=80' },
 ];
 
 const INSTAGRAM = [
@@ -196,8 +196,8 @@ export default function Home() {
           >
             {[
               loadedHeroImg,
-              'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1600&q=90',
-              'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=90'
+              'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=1600&q=90',
+              'https://images.unsplash.com/photo-1515372039744-b0f0234acbc6?w=1600&q=90'
             ].map((imgUrl, idx) => (
               <SwiperSlide key={idx} className="w-full h-full flex justify-center items-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -205,6 +205,7 @@ export default function Home() {
                   src={imgUrl}
                   alt={hero?.title || "Timeless Finds Hero"}
                   className="w-full h-full object-cover object-top opacity-65 scale-[1.02]"
+                  fetchPriority={idx === 0 ? 'high' : 'auto'}
                   onError={(e) => {
                     const t = e.target as HTMLImageElement;
                     if (t.src !== HERO_FALLBACK) t.src = HERO_FALLBACK;
@@ -310,6 +311,7 @@ export default function Home() {
                       <img
                         src={resolveImage(cat.image, getCategoryPlaceholder(cat.name, idx))}
                         alt={cat.name || 'Category'}
+                        loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         onError={(e) => { 
                           const target = e.target as HTMLImageElement;
@@ -406,7 +408,7 @@ export default function Home() {
             <div className="flex items-end justify-between mb-8 gap-4 pb-2 border-b border-gray-100/50">
               <div>
                 <p className="text-rose-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] mb-1.5">For the Gentlemen</p>
-                <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900">Boys&apos; Ethnic Wear</h2>
+                <h2 className="text-xl md:text-3xl font-serif font-bold text-gray-900">Men&apos;s Ethnic Wear</h2>
               </div>
               <Link href="/dresses?gender=men" className="text-xs font-bold uppercase tracking-widest text-gray-900 border-b border-gray-900 pb-0.5 hover:text-rose-600 hover:border-rose-600 transition-colors">
                 View All
@@ -506,7 +508,7 @@ export default function Home() {
                 )}
               </h2>
               <p className="text-gray-500 text-base leading-relaxed mb-6">
-                {creator?.description || "India's most influential fashion creator teamed up with DressAura to craft the \"Bombay Nights\" capsule — 100 pieces ethically made in Mumbai. Once sold, never restocked."}
+                {creator?.description || "India's most influential fashion creator teamed up with Timeless Finds to craft the \"Bombay Nights\" capsule — 100 pieces ethically made in Mumbai. Once sold, never restocked."}
               </p>
               <div className="flex items-center gap-8 mb-10">
                 <div>
@@ -591,8 +593,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <p className="text-rose-500 text-xs font-bold uppercase tracking-[0.25em] mb-3">Join the Community</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-2">#DressAura</h2>
-            <p className="text-gray-500 text-sm">Tag us to be featured • @dressaura.official</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-2">#TimelessFinds</h2>
+            <p className="text-gray-500 text-sm">Tag us to be featured • @timelessfinds.store</p>
           </div>
 
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
@@ -602,6 +604,7 @@ export default function Home() {
                 <img
                   src={post.image_url || post.img}
                   alt={post.handle}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 p-2">
@@ -615,13 +618,13 @@ export default function Home() {
 
           <div className="text-center mt-8">
             <a
-              href="https://instagram.com/dressaura.official"
+              href="https://instagram.com/timelessfinds.store"
               target="_blank"
               rel="noreferrer"
               id="instagram-link"
               className="inline-flex items-center gap-2 border border-gray-900 text-gray-900 text-sm font-bold uppercase tracking-widest px-8 py-3.5 hover:bg-black hover:text-white transition-all duration-300"
             >
-              Follow @DressAura
+              Follow @TimelessFinds
             </a>
           </div>
         </div>

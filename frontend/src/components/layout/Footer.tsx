@@ -24,7 +24,7 @@ const LINKS = {
         ['Return Policy', '/return-policy'],
     ],
     Community: [
-        ['#DressAura', '#'],
+        ['#TimelessFinds', '#'],
         ['Influencer Program', '#'],
         ['Affiliate Partners', '#'],
         ['Our Story', '/about'],

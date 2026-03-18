@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { useCartStore } from '@/store/cartStore';
 import { useAuthStore } from '@/store/authStore';
@@ -236,7 +237,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                         {/* Select Size */}
                         <div className="flex justify-between items-center mb-4">
                             <span className="font-semibold text-gray-900">Select Size</span>
-                            <span className="text-sm text-gray-500 underline cursor-pointer">Size Guide</span>
+                            <Link href="/size-guide" className="text-sm text-rose-600 underline hover:text-rose-800 transition-colors font-medium">
+                                Size Guide
+                            </Link>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                             {product.sizes.map((item: any) => {

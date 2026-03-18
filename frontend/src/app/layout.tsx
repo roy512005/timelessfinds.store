@@ -33,6 +33,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload LCP hero image to eliminate render-blocking fetch delay */}
+        <link
+          rel="preload"
+          as="image"
+          href="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1600&q=90"
+          fetchPriority="high"
+        />
+      </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         <QueryProvider>
           <ClientLayout>

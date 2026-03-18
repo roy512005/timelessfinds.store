@@ -171,6 +171,7 @@ export function ProductCard({ p }: { p: Product }) {
                             <img
                                 src={resolveImg()}
                                 alt={title}
+                                loading="lazy"
                                 className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${hovered ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
                                 onError={(e) => { 
                                     const target = e.target as HTMLImageElement;
@@ -185,6 +186,7 @@ export function ProductCard({ p }: { p: Product }) {
                                         : (p.images[1] as any).url || resolveImg()
                                 }
                                 alt={title}
+                                loading="lazy"
                                 className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${hovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
                             />
                         </>
@@ -192,6 +194,7 @@ export function ProductCard({ p }: { p: Product }) {
                         <img
                             src={resolveImg()}
                             alt={title}
+                            loading="lazy"
                             className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-105' : 'scale-100'}`}
                             onError={(e) => { 
                                 const target = e.target as HTMLImageElement;

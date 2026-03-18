@@ -136,3 +136,72 @@ export const processRefund = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// @desc   Secure server-to-server Razorpay webhook
+// @route  POST /api/payments/webhook
+// IMPORTANT: Express must receive a raw Buffer (not parsed JSON) for HMAC to work.
+// Apply express.raw({ type: 'application/json' }) at the route level — NOT here.
+export const handleWebhook = async (req, res) => {
+    try {
+        const WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET;
+        if (!WEBHOOK_SECRET) {
+            console.error('RAZORPAY_WEBHOOK_SECRET is not set. Webhook disabled.');
+            return res.status(500).send('Webhook secret not configured');
+        }
+
+        // 1. Get the signature sent by Razorpay in the request headers
+        const razorpaySignature = req.headers['x-razorpay-signature'];
+        if (!razorpaySignature) {
+            return res.status(400).send('Missing signature header');
+        }
+
+        // 2. Compute the expected signature from the raw body buffer
+        const expectedSignature = crypto
+            .createHmac('sha256', WEBHOOK_SECRET)
+            .update(req.body)   // req.body must be a raw Buffer (express.raw middleware)
+            .digest('hex');
+
+        // 3. Constant-time comparison to prevent timing attacks
+        const signaturesMatch = crypto.timingSafeEqual(
+            Buffer.from(expectedSignature, 'hex'),
+            Buffer.from(razorpaySignature, 'hex')
+        );
+
+        if (!signaturesMatch) {
+            console.error('SECURITY ALERT: Invalid Razorpay webhook signature. Possible fraud attempt.');
+            return res.status(400).send('Invalid signature');
+        }
+
+        // 4. Parse the raw body only AFTER signature verification
+        const event = JSON.parse(req.body.toString());
+
+        // 5. Handle payment captured event — this is the only trusted fulfillment trigger
+        if (event.event === 'payment.captured') {
+            const paymentEntity = event.payload?.payment?.entity;
+            const internalOrderId = paymentEntity?.notes?.internal_order_id || paymentEntity?.notes?.orderId;
+
+            if (internalOrderId) {
+                const order = await Order.findById(internalOrderId);
+                if (order && !order.isPaid) {
+                    order.isPaid = true;
+                    order.paidAt = new Date();
+                    order.status = 'Confirmed';
+                    order.paymentResult = {
+                        id: paymentEntity.id,
+                        status: 'paid',
+                        razorpay_order_id: paymentEntity.order_id,
+                    };
+                    await order.save();
+                    console.log(`Webhook: Order ${internalOrderId} marked as PAID via verified webhook.`);
+                }
+            }
+        }
+
+        // Always respond 200 quickly so Razorpay doesn't retry
+        res.status(200).send('Webhook received');
+    } catch (error) {
+        console.error('Webhook processing error:', error.message);
+        res.status(500).send('Webhook error');
+    }
+};
+
